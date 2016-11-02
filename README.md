@@ -4,7 +4,7 @@ Parent-specific copy number estimation pipeline.
 
 ## Setup (once)
 
-1. Run `Rscript 1.mpileup.R` once. This will setup links to shared annotation data sets and lab data files on the TIPCC compute cluster.
+1. Run `Rscript 0.setup.R` once. This will setup links to shared annotation data sets and lab data files on the TIPCC compute cluster.
 2. Make sure `./config.yml` is correct.  It specify the default analysis settings.  The individual entries can be overridden by individual command-line options to the below `Rscript` calls.
 
 

@@ -4,7 +4,7 @@ library("listenv")
 source("R/pairs_from_samples.R")
 
 ## USAGE:
-## qcmd --exec Rscript 3.reports.R --config=config.yml --samples=data/20161014_samplesforPSCN.txt
+## qcmd --exec Rscript 3.reports.R --config=config.yml --samples=sampleData/20161014_samplesforPSCN.txt
 
 mprintf("Script: 3.reports.R ...\n")
 

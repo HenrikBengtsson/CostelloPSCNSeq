@@ -1,5 +1,5 @@
 ## Example:
-## qcmd --exec Rscript 1b.sequenza.R --config=config.yml --samples=data/20161014_samplesforPSCN.txt
+## qcmd --exec Rscript 1b.sequenza.R --config=config.yml --samples=sampleData/20161014_samplesforPSCN.txt
 
 library("aroma.seq")
 mprint(sessionDetails())

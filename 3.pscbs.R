@@ -1,5 +1,5 @@
 ## USAGE:
-## qcmd --exec Rscript 2b.pscbs.R --config=config.yml --samples=data/20161014_samplesforPSCN.txt
+## qcmd --exec Rscript 2b.pscbs.R --config=config.yml --samples=sampleData/20161014_samplesforPSCN.txt
 
 library("aroma.seq")
 mprint(sessionDetails())

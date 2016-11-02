@@ -1,5 +1,5 @@
 ## Example:
-## qcmd --exec Rscript 1a.mpileup.R --config=config.yml --samples=data/20161014_samplesforPSCN.txt
+## qcmd --exec Rscript 1a.mpileup.R --config=config.yml --samples=sampleData/20161014_samplesforPSCN.txt
 
 library("aroma.seq")
 mprint(sessionDetails())
@@ -28,6 +28,7 @@ str(samples)
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## Annotation data
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
+message("* Loading annotation data files ...")
 fa <- FastaReferenceFile(config_data$fasta)
 print(fa)
 gc <- GcBaseFile(config_data$gcbase)
@@ -40,10 +41,14 @@ print(gc)
 stopifnot(isCompatibleWith(gc, fa))
 stopifnot(all(getSeqNames(gc) == getSeqNames(fa)))
 
+message("* Loading annotation data files ... DONE")
+
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ## Sequence read data
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
+message("* Loading all BAM files ...")
+
 dataset <- config_data$dataset
 organism <- config_data$organism
 bam_pattern <- ".bwa.realigned.rmDups(|.recal)(|.bam)$"
@@ -68,6 +73,8 @@ tags <- sapply(bams, FUN=function(bam) getTags(bam)[1])
 bams <- bams[paste(names, tags, sep=",") %in% paste(samples$Patient_ID, samples$A0, sep=",")]
 print(bams)
 stopifnot(length(bams) > 0)
+
+message("* Loading all BAM files ... DONE")
 
 
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - -

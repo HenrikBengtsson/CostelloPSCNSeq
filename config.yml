@@ -4,5 +4,5 @@ fasta: annotationData/organisms/Homo_sapiens/GRCh37,hg19/UCSC/hg19.fa
 gcbase: annotationData/organisms/Homo_sapiens/GRCh37,hg19/UCSC/hg19.gc50Base.txt.gz
 dataset: CostelloP_2015-Exome,bwa,realigned,rmDups,recal
 binsize: 100e3
-samples: data/samples.tsv
+samples: sampleData/samples.tsv
 

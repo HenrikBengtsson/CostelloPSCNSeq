@@ -6,7 +6,7 @@ mkdirs(path)
 createLink(link = file.path(path, "Homo_sapiens"), target = "/costellolab/jocostello/LG3/exomes_recal")
 
 mkdirs("sampleData")
-mkdirs("seqData")
+mkdirs("seqzData")
 
 if (!file_test("-f", ".future.R")) {
 cat(file = ".future.R", '

@@ -1,4 +1,5 @@
 library("aroma.seq")
+library("PSCBS")
 mprint(sessionDetails())
 library("listenv")
 source("R/pairs_from_samples.R")

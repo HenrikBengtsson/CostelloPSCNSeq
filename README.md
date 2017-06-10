@@ -30,7 +30,7 @@ The following scripts should be run in order:
 * `Rscript 3.pscbs.R`
 * `Rscript 4.reports.R`
 
-You may adjust `./config.yml` when new files come in, or you can overridden the defaults individually via command-line options.
+You may want to adjust [`./config.yml`](https://github.com/HenrikBengtsson/Costello-PSCN-Seq/blob/master/config.yml) to process other data set. Alternatively, you can specify another file that this default via command-line option `--config`, e.g. `Rscript 1.mpileup.R --config=config_set_a.yml`.
 
 
 [R]: https://www.r-project.org/

@@ -5,10 +5,15 @@ Parent-specific copy-number estimation pipeline.
 
 ## Requirements
 
-This pipeline is implemented in [R] and requires the R package [aroma.seq].  To install the latter and all of the required dependencies, do:
+This pipeline is implemented in [R] and requires the R package [aroma.seq].  To install the latter and all of the required dependencies, call the following from R:
 ```r
-source("http://callr.org/install#HenrikBengtsson/aroma.seq")
+> source("http://callr.org/install#HenrikBengtsson/aroma.seq")
 ```
+To run the pipeline on a computer cluster, the [future.batchtools] package is also needed, which can be installed directly from CRAN as:
+```r
+> install.packages("future.batchtools")
+```
+
 
 ## Setup (once)
 
@@ -30,3 +35,4 @@ You may adjust `./config.yml` when new files come in, or you can overridden the 
 
 [R]: https://www.r-project.org/
 [aroma.seq]: https://github.com/HenrikBengtsson/aroma.seq/
+[future.batchtools]: https://cloud.r-project.org/package=future.batchtools

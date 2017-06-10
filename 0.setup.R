@@ -10,10 +10,10 @@ mkdirs("seqzData")
 
 if (!file_test("-f", ".future.R")) {
 cat(file = ".future.R", '
-library("future.BatchJobs")
+library("future.batchtools")
 plan(list(
-  samples     = tweak(batchjobs_torque, resources=list(vmem="1gb")),
-  chromosomes = tweak(batchjobs_torque, resources=list(vmem="5gb"))
+  samples     = tweak(batchtools_torque, resources=list(vmem = "1gb")),
+  chromosomes = tweak(batchtools_torque, resources=list(vmem = "5gb"))
 ))
 ')
 }

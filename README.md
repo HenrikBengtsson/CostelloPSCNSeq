@@ -1,6 +1,19 @@
 # CostelloJ-PSCN-Seq
 
-Parent-specific copy number estimation pipeline.
+Parent-specific copy-number estimation pipeline.
+
+
+## Requirements
+
+This pipeline is implemented in [R] and requires the R package [aroma.seq].  To install the latter and all of the required dependencies, call the following from R:
+```r
+> source("http://callr.org/install#HenrikBengtsson/aroma.seq")
+```
+To run the pipeline on a computer cluster, the [future.batchtools] package is also needed, which can be installed directly from CRAN as:
+```r
+> install.packages("future.batchtools")
+```
+
 
 ## Setup (once)
 
@@ -17,4 +30,9 @@ The following scripts should be run in order:
 * `Rscript 3.pscbs.R`
 * `Rscript 4.reports.R`
 
-You may adjust `./config.yml` when new files come in, or you can overridden the defaults individually via command-line options.
+You may want to adjust [`./config.yml`](https://github.com/HenrikBengtsson/Costello-PSCN-Seq/blob/master/config.yml) to process other data set. Alternatively, you can specify another file that this default via command-line option `--config`, e.g. `Rscript 1.mpileup.R --config=config_set_a.yml`.
+
+
+[R]: https://www.r-project.org/
+[aroma.seq]: https://github.com/HenrikBengtsson/aroma.seq/
+[future.batchtools]: https://cran.r-project.org/package=future.batchtools

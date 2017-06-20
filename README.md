@@ -35,4 +35,4 @@ You may want to adjust [`./config.yml`](https://github.com/HenrikBengtsson/Coste
 
 [R]: https://www.r-project.org/
 [aroma.seq]: https://github.com/HenrikBengtsson/aroma.seq/
-[future.batchtools]: https://cloud.r-project.org/package=future.batchtools
+[future.batchtools]: https://cran.r-project.org/package=future.batchtools

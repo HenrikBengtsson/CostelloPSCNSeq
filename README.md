@@ -14,6 +14,20 @@ To run the pipeline on a computer cluster, the [future.batchtools] package is al
 > install.packages("future.batchtools")
 ```
 
+We've updated to future.batchtools which looks for ~/.batchtools.torque.tmpl; just copy Henrik's:
+
+$ cp /home/henrik/.batchtools.torque.tmpl ~
+You can verify that it works but trying the following in the project directory:
+
+> library("future")
+Using future plan:
+plan(list(samples = tweak(batchtools_torque, label = "sample", 
+    resources = list(vmem = "1gb")), chromosomes = tweak(batchtools_torque, 
+    label = "chr", resources = list(vmem = "5gb"))))
+> x %<-% Sys.info()[["nodename"]]
+> x  
+[1] "n17"
+> 
 
 ## Setup (once)
 

@@ -1,8 +1,8 @@
 ## Example:
-## qcmd --exec Rscript 1b.sequenza.R --config=config.yml --samples=sampleData/20161014_samplesforPSCN.txt
+## qcmd --exec Rscript 2.sequenza.R --config=config.yml --samples=sampleData/20161014_samplesforPSCN.txt
 
 library("aroma.seq")
-mprint(sessionDetails())
+if (!interactive()) mprint(sessionDetails())
 options("R.filesets::onRemapping"="ignore")
 library("listenv")
 source("R/pairs_from_samples.R")
@@ -157,4 +157,5 @@ for (ii in seq_along(seqzList)) {
   })
 }
 
-mprint(sessionDetails())
+if (!interactive()) mprint(sessionDetails())
+

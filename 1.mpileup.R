@@ -1,8 +1,8 @@
 ## Example:
-## qcmd --exec Rscript 1a.mpileup.R --config=config.yml --samples=sampleData/20161014_samplesforPSCN.txt
+## qcmd --exec Rscript 1.mpileup.R --config=config.yml --samples=sampleData/20161014_samplesforPSCN.txt
 
 library("aroma.seq")
-mprint(sessionDetails())
+if (!interactive()) mprint(sessionDetails())
 options("R.filesets::onRemapping" = "ignore")
 
 message("* Loading configuration")
@@ -31,6 +31,7 @@ str(samples)
 message("* Loading annotation data files ...")
 fa <- FastaReferenceFile(config_data$fasta)
 print(fa)
+stopifnot(!isGzipped(fa))
 gc <- GcBaseFile(config_data$gcbase)
 print(gc)
 
@@ -86,8 +87,7 @@ if (interactive()) readline("Press ENTER to start processing of data: ")
 ## Count nucleotides at every(!) genomic position
 ## using 'samtools mpileup'
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
-chrsTag <- sprintf("chr=%s", seqToHumanReadable(chrs, tau=1, collapse="_"))
-chrLabels <- sprintf("chr%d", chrs)
+chrLabels <- sprintf("chr%s", chrs)
 
 ## Note that the generated *.mpileup files are very large.
 res <- mpileup(bams, fa=fa, chromosomes=chrLabels, verbose=-10)
@@ -96,4 +96,5 @@ print(res)
 mps <- MPileupFileSet(res)
 print(mps)
 
-mprint(sessionDetails())
+if (!interactive()) mprint(sessionDetails())
+

@@ -1,0 +1,38 @@
+######################################################################
+# A BatchJobs launch script template for a Torque/PBS
+#
+# Author: Henrik Bengtsson
+######################################################################
+
+## Job name:
+#PBS -N <%= job.name %>
+
+## Merge standard error and output:
+#PBS -j oe
+
+## Direct streams to logfile:
+#PBS -o <%= log.file %>
+
+## Email on abort (a) and termination (e), but not when starting (b)
+#PBS -m ae
+
+## Resources needed:
+<% if (length(resources) > 0) {
+  opts <- unlist(resources, use.names=TRUE)
+  opts <- sprintf("%s=%s", names(opts), opts)
+  opts <- paste(opts, collapse=",") %>
+#PBS -l <%= opts %>
+<% } %>
+
+## Run R:
+## we merge R output with stdout from PBS, which gets then logged via the PBS -o option
+echo "Command: Rscript --verbose \"<%= rscript %>\""
+Rscript --verbose "<%= rscript %>"
+echo "Command: Rscript --verbose \"<%= rscript %>\" ... DONE"
+
+
+######################################################################
+# HISTORY:
+# 2013-12-18
+# o Shared on the cluster.
+######################################################################

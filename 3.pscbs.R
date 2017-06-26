@@ -1,13 +1,12 @@
 ## USAGE:
-## qcmd --exec Rscript 2b.pscbs.R --config=config.yml --samples=sampleData/20161014_samplesforPSCN.txt
+## qcmd --exec Rscript 3.pscbs.R --config=config.yml --samples=sampleData/20161014_samplesforPSCN.txt
 
 library("aroma.seq")
-mprint(sessionDetails())
+if (!interactive()) mprint(sessionDetails())
 library("listenv")
 source("R/pairs_from_samples.R")
-source("R/utils.R")
 
-mprintf("Script: 2.pscbs.R ...\n")
+mprintf("Script: 3.pscbs.R ...\n")
 
 
 message("* Loading configuration")
@@ -39,12 +38,15 @@ if (samples != "*") {
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
 dataset <- config_data$dataset
 organism <- config_data$organism
-chrsTag <- sprintf("chrs=%s", seqToHumanReadable2(chrs, collapse = "_"))
+chrs[chrs == "X"] <- 23
+chrs[chrs == "Y"] <- 24
+chrs[chrs == "M"] <- 25
+chrsTag <- sprintf("chrs=%s", seqToHumanReadable(chrs, collapse = ","))
 binSizeTag <- sprintf("%gkb", binSize/1000)
 
 mprintf("Dataset: %s\n", dataset)
 mprintf("Organism: %s\n", organism)
-mprintf("Chromosomes: %s\n", seqToHumanReadable2(chrs))
+mprintf("Chromosomes: %s\n", seqToHumanReadable(chrs))
 mprintf("Bin size: %s (%d bp)\n", binSizeTag, binSize)
 
 
@@ -62,7 +64,10 @@ fullnamesS <- gsub("[.]seqz(|[.]gz)$", "", filenamesS)
 datasetD <- fullname(datasetS, binSizeTag, "tcn=2")
 pathD <- file.path("pscbsData", datasetD, organism)
 pathD <- Arguments$getWritablePath(pathD)
-fullnamesD <- gsub(",chr=chr", ",chr=", fullnamesS)
+fullnamesS2 <- gsub("chrX", "chr23", fullnamesS)
+fullnamesS2 <- gsub("chrY", "chr24", fullnamesS2)
+fullnamesS2 <- gsub("chrM", "chr25", fullnamesS2)
+fullnamesD <- gsub(",chr=chr", ",chr=", fullnamesS2)
 filenamesD <- sprintf("%s,PairedPSCBS.xdr", fullnamesD)
 pathnamesD <- file.path(pathD, filenamesD)
 
@@ -103,7 +108,6 @@ mprintf("Tumor-normal samples: [n=%d] %s\n", length(all_samples), hpaste(sQuote(
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
 if (interactive()) readline("Press ENTER to start processing of data: ")
 
-
 fitList <- listenv()
 for (ii in seq_along(all_samples)) {
   sample <- all_samples[ii]
@@ -141,7 +145,7 @@ for (ii in seq_along(all_samples)) {
       ## Assert all chromosomes have been processed
       missing <- setdiff(chrs, getChromosomes(fit))
       if (length(missing) > 0) {
-        throw(sprintf("Sanity check failure: Some chromosomes were not processed for sample %s: %s", sQuote(sample), paste(chrs, collapse=", ")))
+        throw(sprintf("Sanity check failure: Some chromosomes were not processed for sample %s: %s", sQuote(sample), paste(missing, collapse=", ")))
       }
 
       verbose && cat(verbose, "PSCBS total copy-number normalization:")
@@ -167,4 +171,4 @@ fitList <- resolve(fitList, value = TRUE)
 fitList <- unlist(fitList)
 print(fitList)
 
-mprint(sessionDetails())
+if (!interactive()) mprint(sessionDetails())

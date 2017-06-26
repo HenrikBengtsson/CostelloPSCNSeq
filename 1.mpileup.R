@@ -1,8 +1,8 @@
 ## Example:
-## qcmd --exec Rscript 1a.mpileup.R --config=config.yml --samples=sampleData/20161014_samplesforPSCN.txt
+## qcmd --exec Rscript 1.mpileup.R --config=config.yml --samples=sampleData/20161014_samplesforPSCN.txt
 
 library("aroma.seq")
-mprint(sessionDetails())
+if (!interactive()) mprint(sessionDetails())
 options("R.filesets::onRemapping" = "ignore")
 
 message("* Loading configuration")
@@ -95,4 +95,5 @@ print(res)
 mps <- MPileupFileSet(res)
 print(mps)
 
-mprint(sessionDetails())
+if (!interactive()) mprint(sessionDetails())
+

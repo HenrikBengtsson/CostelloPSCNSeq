@@ -1,14 +1,14 @@
 library("aroma.seq")
 library("PSCBS")
-mprint(sessionDetails())
+if (!interactive()) mprint(sessionDetails())
 library("listenv")
 source("R/pairs_from_samples.R")
 source("R/utils.R")
 
 ## USAGE:
-## qcmd --exec Rscript 3.reports.R --config=config.yml --samples=sampleData/20161014_samplesforPSCN.txt
+## qcmd --exec Rscript 4.reports.R --config=config.yml --samples=sampleData/20161014_samplesforPSCN.txt
 
-mprintf("Script: 3.reports.R ...\n")
+mprintf("Script: 4.reports.R ...\n")
 
 
 message("* Loading configuration")
@@ -27,8 +27,10 @@ samples <- cmdArg(samples = config_data$samples)
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
 mprintf("Dataset: %s\n", dataset)
 mprintf("Organism: %s\n", organism)
-## FIXME: 'chrsTag' == "1-22" also for c(1:22, "X")
-mprintf("Chromosomes: %s\n", seqToHumanReadable2(chrs))
+chrs[chrs == "X"] <- 23
+chrs[chrs == "Y"] <- 24
+chrs[chrs == "M"] <- 25
+mprintf("Chromosomes: %s\n", seqToHumanReadable(chrs))
 
 
 
@@ -119,4 +121,4 @@ for (ii in seq_along(all_samples)) {
 reports <- unlist(reports)
 print(reports)
 
-mprint(sessionDetails())
+if (!interactive()) mprint(sessionDetails())

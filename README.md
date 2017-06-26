@@ -6,7 +6,7 @@ Parent-specific copy-number estimation pipeline.
 ## Requirements
 
 ### Required software
-This pipeline is implemented in [R] and requires the R package [aroma.seq].  To install the latter and all of the required dependencies, call the following from R:
+This pipeline is implemented in [R] and requires R packages [aroma.seq] and [sequenza].  To install these packages and all of their dependencies, call the following from R:
 ```r
 > source("http://callr.org/install#HenrikBengtsson/aroma.seq,sequenza")
 ```
@@ -36,7 +36,7 @@ You may want to adjust [`./config.yml`](https://github.com/HenrikBengtsson/Coste
 
 ## Configure parallel processing
 
-The pipeline supports both sequential and parallel processing on a large number of backends and compute resources.  By default the pipeline is configured to process the data sequentially on the current machine, but this can easily be changed to run in parallel, say, on a compute cluster.  In order not to clutter up the analysis scripts, these settings are preferably done in a separate `.future.R` in the project root directory.
+The pipeline supports both sequential and parallel processing on a large number of backends and compute resources.  By default the pipeline is configured to process the data sequentially on the current machine, but this can easily be changed to run in parallel, say, on a compute cluster.  In order not to clutter up the analysis scripts, these settings are preferably done in a separate `.future.R` (loaded automatically by the [future] framework) in the project root directory.
 
 To process data via a TORQUE / PBS job scheduler using the [future.batchtools] package, try with the configuration that we use for our UCSF TIPCC cluster;
 ```

@@ -31,6 +31,7 @@ str(samples)
 message("* Loading annotation data files ...")
 fa <- FastaReferenceFile(config_data$fasta)
 print(fa)
+stopifnot(!isGzipped(fa))
 gc <- GcBaseFile(config_data$gcbase)
 print(gc)
 

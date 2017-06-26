@@ -6,6 +6,15 @@ mprint(sessionDetails())
 library("listenv")
 source("R/pairs_from_samples.R")
 
+seqToHumanReadable2 <- function(idxs, collapse=", ") {
+  x <- suppressWarnings(as.numeric(idxs))
+  nas <- is.na(x)
+  idxs_numeric <- idxs[!nas]
+  x_numeric <- seqToHumanReadable(idxs_numeric)
+  x_non_numeric <- idxs[nas]
+  paste(c(x_numeric, x_non_numeric), collapse = collapse)
+}
+
 mprintf("Script: 2.pscbs.R ...\n")
 
 
@@ -39,13 +48,13 @@ if (samples != "*") {
 dataset <- config_data$dataset
 organism <- config_data$organism
 ## FIXME: 'chrsTag' == "1-22" also for c(1:22, "X")
-chrsTag <- sprintf("chrs=%s", seqToHumanReadable(chrs))
+chrsTag <- sprintf("chrs=%s", seqToHumanReadable2(idxs, collapse = "_"))
 binSizeTag <- sprintf("%gkb", binSize/1000)
 
 mprintf("Dataset: %s\n", dataset)
 mprintf("Organism: %s\n", organism)
 ## FIXME: 'chrsTag' == "1-22" also for c(1:22, "X")
-mprintf("Chromosomes: %s\n", seqToHumanReadable(chrs))
+mprintf("Chromosomes: %s\n", seqToHumanReadable2(chrs, collapse = "_"))
 mprintf("Bin size: %s (%d bp)\n", binSizeTag, binSize)
 
 

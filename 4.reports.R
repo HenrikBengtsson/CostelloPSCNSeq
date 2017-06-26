@@ -3,15 +3,7 @@ library("PSCBS")
 mprint(sessionDetails())
 library("listenv")
 source("R/pairs_from_samples.R")
-
-seqToHumanReadable2 <- function(idxs, collapse=", ") {
-  x <- suppressWarnings(as.numeric(idxs))
-  nas <- is.na(x)
-  idxs_numeric <- idxs[!nas]
-  x_numeric <- seqToHumanReadable(idxs_numeric)
-  x_non_numeric <- idxs[nas]
-  paste(c(x_numeric, x_non_numeric), collapse = collapse)
-}
+source("R/utils.R")
 
 ## USAGE:
 ## qcmd --exec Rscript 3.reports.R --config=config.yml --samples=sampleData/20161014_samplesforPSCN.txt
@@ -36,7 +28,7 @@ samples <- cmdArg(samples = config_data$samples)
 mprintf("Dataset: %s\n", dataset)
 mprintf("Organism: %s\n", organism)
 ## FIXME: 'chrsTag' == "1-22" also for c(1:22, "X")
-mprintf("Chromosomes: %s\n", seqToHumanReadable2(chrs, collapse = "_"))
+mprintf("Chromosomes: %s\n", seqToHumanReadable2(chrs))
 
 
 

@@ -36,17 +36,18 @@ You may want to adjust [`./config.yml`](https://github.com/HenrikBengtsson/Coste
 
 ## Configure parallel processing
 
-The pipeline supports both sequential and parallel processing on a large number of backends and compute resources.  How and where parallel processing is done is given by the `.future.R` script.
+The pipeline supports both sequential and parallel processing on a large number of backends and compute resources.  By default the pipeline is configured to process the data sequentially on the current machine, but this can easily be changed to run in parallel, say, on a compute cluster.  In order not to clutter up the analysis scripts, these settings are preferably done in a separate `.future.R` in the project root directory.
 
-By default, `.future.R` is configured to process the data via a TORQUE / PBS job scheduler using the [future.batchtools] package, which can be installed as
-```r
-> install.packages("future.batchtools")
+To process data via a TORQUE / PBS job scheduler using the [future.batchtools] package, try with the configuration that we use for our UCSF TIPCC cluster;
 ```
-You will also need a [batchtools] PBS-script template for this to work.  The once in `.future-templates/` is known to work on the UCSF TIPCC cluster, but should be generic enough to work elsewhere too.  Unless you've already got one, copy it to your home directory:
+# Copy to project directory
+$ cp .future-configs/batchtools/.future.R .
+# Copy to home directory
+$ cp .future-configs/batchtools/.batchtools.torque.tmpl ~
+# Install the future.batchtools package
+$ Rscript -e "install.packages('future.batchtools')"
 ```
-$ cp .future-templates/.batchtools.torque.tmpl ~
-```
-and you should be ready to go.
+These should be generic enough to also run on other TORQUE / PBS systems.  If not, see the [batchtools] package for how to configure the template file.
 
 You can verify that it works by trying the following in the project directory:
 ```r

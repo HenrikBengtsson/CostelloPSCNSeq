@@ -2,7 +2,7 @@
 library("future.BatchJobs")
 
 plan(list(
-  samples     = tweak(batchjobs_torque, label = "sample", resources=list(vmem = "1gb")),
+  samples     = tweak(batchjobs_torque, label = "sample", resources=list(vmem = "2gb")),
   chromosomes = tweak(batchjobs_torque, label = "chr",    resources=list(vmem = "5gb"))
 ))
 

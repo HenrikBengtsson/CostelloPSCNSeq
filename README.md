@@ -7,20 +7,20 @@ Parent-specific copy-number estimation pipeline.
 
 This pipeline is implemented in [R] and requires the R package [aroma.seq].  To install the latter and all of the required dependencies, call the following from R:
 ```r
-> source("http://callr.org/install#HenrikBengtsson/aroma.seq")
+> source("http://callr.org/install#HenrikBengtsson/aroma.seq,sequenza")
 ```
 To run the pipeline on a computer cluster, the [future.batchtools] package is also needed, which can be installed directly from CRAN as:
 ```r
 > install.packages("future.batchtools")
 ```
 
-We've updated to future.batchtools which looks for ~/.batchtools.torque.tmpl; just copy Henrik's:
+We've updated to future.batchtools which looks for `~/.batchtools.torque.tmpl`; just copy Henrik's:
 
 ```
 $ cp /home/henrik/.batchtools.torque.tmpl ~
 ```
 
-You can verify that it works but trying the following in the project directory:
+You can verify that it works by trying the following in the project directory:
 
 ```r
 > library("future")

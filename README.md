@@ -5,39 +5,21 @@ Parent-specific copy-number estimation pipeline.
 
 ## Requirements
 
+### Required software
 This pipeline is implemented in [R] and requires the R package [aroma.seq].  To install the latter and all of the required dependencies, call the following from R:
 ```r
 > source("http://callr.org/install#HenrikBengtsson/aroma.seq,sequenza")
 ```
-To run the pipeline on a computer cluster, the [future.batchtools] package is also needed, which can be installed directly from CRAN as:
-```r
-> install.packages("future.batchtools")
-```
+In addition to the above R dependencies, the pipeline requires that [samtools] is on the `PATH`.
 
-We've updated to future.batchtools which looks for `~/.batchtools.torque.tmpl`; just copy Henrik's:
-
-```
-$ cp /home/henrik/.batchtools.torque.tmpl ~
-```
-
-You can verify that it works by trying the following in the project directory:
-
-```r
-> library("future")
-Using future plan:
-plan(list(samples = tweak(batchtools_torque, label = "sample", 
-    resources = list(vmem = "1gb")), chromosomes = tweak(batchtools_torque, 
-    label = "chr", resources = list(vmem = "5gb"))))
-> x %<-% Sys.info()[["nodename"]]
-> x  
-[1] "n17"
-> 
-```
 
 ## Setup (once)
 
 1. Run `Rscript 0.setup.R` once. This will setup links to shared annotation data sets and lab data files on the TIPCC compute cluster.
+
 2. Make sure `./config.yml` is correct.  It specify the default analysis settings.  The individual entries can be overridden by individual command-line options to the below `Rscript` calls.
+
+3. Configure parallel processing following the instructions in Section 'Configure parallel processing' below.
 
 
 ## Data processing
@@ -52,6 +34,49 @@ The following scripts should be run in order:
 You may want to adjust [`./config.yml`](https://github.com/HenrikBengtsson/Costello-PSCN-Seq/blob/master/config.yml) to process other data set. Alternatively, you can specify another file that this default via command-line option `--config`, e.g. `Rscript 1.mpileup.R --config=config_set_a.yml`.
 
 
+## Configure parallel processing
+
+The pipeline supports both sequential and parallel processing on a large number of backends and compute resources.  How and where parallel processing is done is given by the `.future.R` script.
+
+By default, `.future.R` is configured to process the data via a TORQUE / PBS job scheduler using the [future.batchtools] package, which can be installed as
+```r
+> install.packages("future.batchtools")
+```
+You will also need a [batchtools] PBS-script template for this to work.  The once in `.future-templates/` is known to work on the UCSF TIPCC cluster, but should be generic enough to work elsewhere too.  Unless you've already got one, copy it to your home directory:
+```
+$ cp .future-templates/.batchtools.torque.tmpl ~
+```
+and you should be ready to go.
+
+You can verify that it works by trying the following in the project directory:
+```r
+> library("future")
+Using future plan:
+plan(list(samples = tweak(batchtools_torque, label = "sample", 
+    resources = list(vmem = "1gb")), chromosomes = tweak(batchtools_torque, 
+    label = "chr", resources = list(vmem = "5gb"))))
+```
+This confirms that as soon as the [future] package is loaded, it will source the `.future.R` script which in turn will setup the parallel settings.  It is `.future.R` that reports on the future plan used.
+
+Next, we can try to submit a job to the scheduler using these settings by:
+```r
+> x %<-% Sys.info()[["nodename"]]
+```
+In this step, future.batchtools will import the `.batchtools.torque.tmpl` file.  If it fails to locate that file, there will be an error.  If it succeeds, a batchtools job will be submitted to the job scheduler, cf. `qstat -u $USER`.
+
+Finally, if we try to look at the value of `x`;
+```r
+> x
+[1] "n17"
+> 
+```
+it will block until the job is finished and then its value will be printed. Here we see that the job was running on compute node n17.
+
+
 [R]: https://www.r-project.org/
+[samtools]: http://www.htslib.org/
 [aroma.seq]: https://github.com/HenrikBengtsson/aroma.seq/
+[sequenza]: https://cran.r-project.org/package=sequenza
+[batchtools]: https://cran.r-project.org/package=batchtools
+[future]: https://cran.r-project.org/package=future
 [future.batchtools]: https://cran.r-project.org/package=future.batchtools

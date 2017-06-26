@@ -42,8 +42,10 @@ To process data via a TORQUE / PBS job scheduler using the [future.batchtools] p
 ```
 # Copy to project directory
 $ cp .future-configs/batchtools/.future.R .
+
 # Copy to home directory
 $ cp .future-configs/batchtools/.batchtools.torque.tmpl ~
+
 # Install the future.batchtools package
 $ Rscript -e "install.packages('future.batchtools')"
 ```

@@ -56,7 +56,7 @@ You can verify that it works by trying the following in the project directory:
 > library("future")
 Using future plan:
 plan(list(samples = tweak(batchtools_torque, label = "sample", 
-    resources = list(vmem = "1gb")), chromosomes = tweak(batchtools_torque, 
+    resources = list(vmem = "2gb")), chromosomes = tweak(batchtools_torque, 
     label = "chr", resources = list(vmem = "5gb"))))
 ```
 This confirms that as soon as the [future] package is loaded, it will source the `.future.R` script which in turn will setup the parallel settings.  It is `.future.R` that reports on the future plan used.

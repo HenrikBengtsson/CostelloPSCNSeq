@@ -86,8 +86,7 @@ if (interactive()) readline("Press ENTER to start processing of data: ")
 ## Count nucleotides at every(!) genomic position
 ## using 'samtools mpileup'
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
-chrsTag <- sprintf("chr=%s", seqToHumanReadable(chrs, tau=1, collapse="_"))
-chrLabels <- sprintf("chr%d", chrs)
+chrLabels <- sprintf("chr%s", chrs)
 
 ## Note that the generated *.mpileup files are very large.
 res <- mpileup(bams, fa=fa, chromosomes=chrLabels, verbose=-10)

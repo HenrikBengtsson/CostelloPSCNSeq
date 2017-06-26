@@ -26,6 +26,7 @@ samples <- cmdArg(samples = config_data$samples)
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
 mprintf("Dataset: %s\n", dataset)
 mprintf("Organism: %s\n", organism)
+## FIXME: 'chrsTag' == "1-22" also for c(1:22, "X")
 mprintf("Chromosomes: %s\n", seqToHumanReadable(chrs))
 
 

@@ -38,11 +38,13 @@ if (samples != "*") {
 ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
 dataset <- config_data$dataset
 organism <- config_data$organism
+## FIXME: 'chrsTag' == "1-22" also for c(1:22, "X")
 chrsTag <- sprintf("chrs=%s", seqToHumanReadable(chrs))
 binSizeTag <- sprintf("%gkb", binSize/1000)
 
 mprintf("Dataset: %s\n", dataset)
 mprintf("Organism: %s\n", organism)
+## FIXME: 'chrsTag' == "1-22" also for c(1:22, "X")
 mprintf("Chromosomes: %s\n", seqToHumanReadable(chrs))
 mprintf("Bin size: %s (%d bp)\n", binSizeTag, binSize)
 

@@ -52,6 +52,10 @@ datasetS <- paste(c(dataset, "seqz,100kb,tcn=2"), collapse = ",")
 pathS <- file.path("pscbsData", datasetS, organism)
 pathS <- Arguments$getReadablePath(pathS)
 pathnamesS <- dir(path=pathS, pattern=",PairedPSCBS.rds", full.names=TRUE)
+## Sanity check
+if (length(pathnamesS) == 0) {
+  stop("Failed to locate any *,PairedPSCBS.rds files: ", sQuote(pathS))
+}
 
 all_samples <- gsub(",chrs=.*", "", basename(pathnamesS))
 filenamesD <- sprintf("%s,PairedPSCBS,report.pdf", all_samples)

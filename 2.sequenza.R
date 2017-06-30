@@ -50,6 +50,10 @@ stopifnot(all(getSeqNames(gc) == getSeqNames(fa)))
 pathMP <- file.path("seqzData", fullname(dataset, "mpileup"), organism)
 pathMP <- Arguments$getReadablePath(pathMP)
 filenamesMP <- dir(path=pathMP, pattern="[.]mpileup(|[.]gz)$")
+## Sanity check
+if (length(filenamesMP) == 0) {
+  stop("Failed to locate any *.mpileup(.gz) files: ", sQuote(pathMP))
+}
 
 pathD <- file.path("seqzData", fullname(dataset, "seqz"), organism)
 pathD <- Arguments$getWritablePath(pathD)

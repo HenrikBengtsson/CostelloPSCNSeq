@@ -58,6 +58,10 @@ datasetS <- paste(c(dataset, "seqz"), collapse = ",")
 pathS <- file.path("seqzData", datasetS, organism)
 pathS <- Arguments$getReadablePath(pathS)
 filenamesS <- dir(path=pathS, pattern="[.]seqz(|[.]gz)$")
+## Sanity check
+if (length(filenamesS) == 0) {
+  stop("Failed to locate any *.seqz(.gz) files: ", sQuote(pathS))
+}
 pathnamesS <- file.path(pathS, filenamesS)
 fullnamesS <- gsub("[.]seqz(|[.]gz)$", "", filenamesS)
 

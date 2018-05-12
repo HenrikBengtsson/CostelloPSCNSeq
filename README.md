@@ -8,7 +8,8 @@ Parent-specific copy-number estimation pipeline.
 ### Required software
 This pipeline is implemented in [R] and requires R packages [aroma.seq] and [sequenza].  To install these packages and all of their dependencies, call the following from R:
 ```r
-> source("http://callr.org/install#HenrikBengtsson/aroma.seq,sequenza")
+> source("http://callr.org/install#sequenza")
+> source("http://callr.org/install#HenrikBengtsson/aroma.seq")
 ```
 In addition to the above R dependencies, the pipeline requires that [samtools] is on the `PATH`.
 

@@ -1,0 +1,12 @@
+#!/bin/bash
+#PBS -N 1-4.all
+#PBS -j oe
+
+cd $PBS_O_WORKDIR
+
+jid=$(qsub -d $PBS_O_WORKDIR                        1.mpileup.pbs)
+jid=$(qsub -d $PBS_O_WORKDIR -W depend=afterok:$jid 2.sequenza.pbs)
+jid=$(qsub -d $PBS_O_WORKDIR -W depend=afterok:$jid 3.pscbs.pbs)
+jid=$(qsub -d $PBS_O_WORKDIR -W depend=afterok:$jid 4.reports.pbs)
+
+echo "Finished"

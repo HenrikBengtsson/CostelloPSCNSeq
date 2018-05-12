@@ -35,6 +35,18 @@ The following scripts should be run in order:
 You may want to adjust [`./config.yml`](https://github.com/HenrikBengtsson/Costello-PSCN-Seq/blob/master/config.yml) to process other data set. Alternatively, you can specify another file that this default via command-line option `--config`, e.g. `Rscript 1.mpileup.R --config=config_set_a.yml`.
 
 
+### Data processing via scheduler
+
+To process the above four steps via the Torque/PBS scheduler, use:
+
+```sh
+$ qsub -d $(pwd) 1-4.all.R
+```
+
+This will in turn submit the corresponding PBS scripts `1.mpileup.pbs`, `2.sequenza.pbs`, `3.pscbs.pbs`, and `4.reports.pbs` to the scheduler.  Those PBS scripts "freeze" software versions to R 3.4.4 and samtools 1.3.1.
+
+
+
 ## Configure parallel processing
 
 The pipeline supports both sequential and parallel processing on a large number of backends and compute resources.  By default the pipeline is configured to process the data sequentially on the current machine, but this can easily be changed to run in parallel, say, on a compute cluster.  In order not to clutter up the analysis scripts, these settings are preferably done in a separate `.future.R` (loaded automatically by the [future] framework) in the project root directory.

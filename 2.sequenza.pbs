@@ -1,0 +1,10 @@
+#!/bin/bash
+#PBS -N 2.sequenza
+#PBS -j oe
+
+cd $PBS_O_WORKDIR
+
+module load CBC r/3.4.4
+echo "Rscript: $(Rscript --version)"
+
+Rscript 2.sequenza.R

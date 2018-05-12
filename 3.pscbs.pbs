@@ -1,0 +1,11 @@
+#!/bin/bash
+#PBS -N 3.pscbs
+#PBS -j oe
+
+cd $PBS_O_WORKDIR
+
+module load CBC r/3.4.4
+echo "Rscript: $(Rscript --version)"
+
+Rscript 3.pscbs.R
+

@@ -1,0 +1,10 @@
+#!/bin/bash
+#PBS -N 1.mpileup
+#PBS -j oe
+
+cd $PBS_O_WORKDIR
+
+module load CBC r/3.4.4 samtools/1.3.1
+echo "Rscript: $(Rscript --version)"
+
+Rscript 1.mpileup.R

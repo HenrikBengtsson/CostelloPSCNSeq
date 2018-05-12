@@ -40,10 +40,10 @@ You may want to adjust [`./config.yml`](https://github.com/HenrikBengtsson/Coste
 To process the above four steps via the Torque/PBS scheduler, use:
 
 ```sh
-$ qsub -d $(pwd) 1-4.all.pbs
+$ qsub -d $(pwd) 1-4.submit_all.pbs
 ```
 
-This will in turn submit the corresponding PBS scripts `1.mpileup.pbs`, `2.sequenza.pbs`, `3.pscbs.pbs`, and `4.reports.pbs` to the scheduler.  Those PBS scripts "freeze" software versions to R 3.4.4 and samtools 1.3.1.
+This will in turn _submit_ the corresponding PBS scripts `1.mpileup.pbs`, `2.sequenza.pbs`, `3.pscbs.pbs`, and `4.reports.pbs` to the scheduler.  Those PBS scripts "freeze" software versions to R 3.4.4 and samtools 1.3.1.
 
 
 

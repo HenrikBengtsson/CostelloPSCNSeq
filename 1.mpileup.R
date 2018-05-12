@@ -71,9 +71,11 @@ directoryStructure(bams) <- list(
 ## Keep patients of interest
 names <- getNames(bams)
 tags <- sapply(bams, FUN=function(bam) getTags(bam)[1])
-bams <- bams[paste(names, tags, sep=",") %in% paste(samples$Patient_ID, samples$A0, sep=",")]
-print(bams)
+keep <- which(paste(names, tags, sep=",") %in% paste(samples$Patient_ID, samples$A0, sep=","))
+stopifnot(length(keep) > 0)
+bams <- bams[keep]
 stopifnot(length(bams) > 0)
+print(bams)
 
 message("* Loading all BAM files ... DONE")
 

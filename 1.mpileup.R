@@ -80,6 +80,10 @@ tags <- sapply(bams, FUN=function(bam) getTags(bam)[1])
 str(tags)
 bams <- bams[paste(names, tags, sep=",") %in% paste(samples$Patient_ID, samples$A0, sep=",")]
 print(bams)
+keep <- which(paste(names, tags, sep=",") %in% paste(samples$Patient_ID, samples$A0, sep=","))
+stopifnot(length(keep) > 0)
+bams <- bams[keep]
+print(bams)
 stopifnot(length(bams) > 0)
 
 message("* Loading all BAM files ... DONE")

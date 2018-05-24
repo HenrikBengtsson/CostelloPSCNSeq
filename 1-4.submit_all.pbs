@@ -9,4 +9,5 @@ jid=$(qsub -d $PBS_O_WORKDIR -W depend=afterok:$jid 2.sequenza.pbs)
 jid=$(qsub -d $PBS_O_WORKDIR -W depend=afterok:$jid 3.pscbs.pbs)
 jid=$(qsub -d $PBS_O_WORKDIR -W depend=afterok:$jid 4.reports.pbs)
 
-echo "Finished"
+echo "Submitted"
+

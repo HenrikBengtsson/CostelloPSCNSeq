@@ -2,7 +2,10 @@
 ## qcmd --exec Rscript 1.mpileup.R --config=config.yml --samples=sampleData/20161014_samplesforPSCN.txt
 
 library("aroma.seq")
-if (!interactive()) mprint(sessionDetails())
+if (!interactive()) {
+  mprint(sessionDetails())
+  mprint(findSamtools())
+}
 options("R.filesets::onRemapping" = "ignore")
 
 message("* Loading configuration")
@@ -52,15 +55,20 @@ message("* Loading all BAM files ...")
 
 dataset <- config_data$dataset
 organism <- config_data$organism
-bam_pattern <- ".bwa.realigned.rmDups(|.recal)(|.bam)$"
+bam_pattern <- config_data$bam_pattern
+if (is.null(bam_pattern)) bam_pattern <- ".bwa.realigned.rmDups(|.recal)(|.bam)$"
 path <- file.path("bamData", dataset, organism)
 bams <- BamDataSet$byPath(path, recursive=TRUE, pattern=bam_pattern)
+stopifnot(length(bams) > 0)
 bams <- bams[grep("old", getPathnames(bams), invert=TRUE)]
+stopifnot(length(bams) > 0)
 bams <- setFullNamesTranslator(bams, function(name, ...) {
   name <- gsub(".bwa.realigned.rmDups.recal.bam", "", name, fixed=TRUE)
   name <- gsub(".bwa.realigned.rmDups.bam", "", name, fixed=TRUE)
+  name <- gsub(".bam", "", name, fixed=TRUE)
   name
 })
+print(bams)
 
 directoryStructure(bams) <- list(
   pattern="([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)",
@@ -70,12 +78,15 @@ directoryStructure(bams) <- list(
 
 ## Keep patients of interest
 names <- getNames(bams)
+str(names)
 tags <- sapply(bams, FUN=function(bam) getTags(bam)[1])
+str(tags)
 keep <- which(paste(names, tags, sep=",") %in% paste(samples$Patient_ID, samples$A0, sep=","))
+str(keep)
 stopifnot(length(keep) > 0)
 bams <- bams[keep]
-stopifnot(length(bams) > 0)
 print(bams)
+stopifnot(length(bams) > 0)
 
 message("* Loading all BAM files ... DONE")
 
@@ -98,5 +109,10 @@ print(res)
 mps <- MPileupFileSet(res)
 print(mps)
 
-if (!interactive()) mprint(sessionDetails())
+if (!interactive()) {
+  mprint(sessionDetails())
+  mprint(findSamtools())
+}
+
+
 

@@ -4,6 +4,7 @@
 
 cd $PBS_O_WORKDIR
 
+module purge
 module load CBC r/3.4.4
 echo "Rscript: $(Rscript --version)"
 

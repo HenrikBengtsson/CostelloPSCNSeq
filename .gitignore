@@ -1,0 +1,9 @@
+.Rhistory
+*~
+**/*~
+*.o*
+.future/
+bamData/
+pscbsData/
+results/
+sampleData/

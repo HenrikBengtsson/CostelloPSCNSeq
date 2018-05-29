@@ -10,7 +10,7 @@ options("R.filesets::onRemapping" = "ignore")
 
 message("* Assertions")
 ver %<-% attr(findSamtools(), "version")
-stopifnot(ver <= "1.4")
+stopifnot(ver < "1.4")
 
 message("* Loading configuration")
 config <- cmdArg(config = "config.yml")

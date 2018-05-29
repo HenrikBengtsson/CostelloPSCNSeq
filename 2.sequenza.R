@@ -144,7 +144,7 @@ for (ii in seq_len(npairs)) {
     ## Normal always comes before tumor!
     pus <- list(pusN, pusT)
     seqz <- pileup2seqz(pus, gc=gc, sampleName=sampleName,
-                        dataset=dataset, organism=organism, verbose=-10)
+                        dataset=dataset, organism=organism, verbose=-20)
     print(seqz)
     seqz
   } %label% label

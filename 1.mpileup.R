@@ -8,6 +8,10 @@ if (!interactive()) {
 }
 options("R.filesets::onRemapping" = "ignore")
 
+message("* Assertions")
+ver %<-% attr(findSamtools(), "version")
+stopifnot(ver <= "1.4")
+
 message("* Loading configuration")
 config <- cmdArg(config = "config.yml")
 config_data <- yaml::yaml.load_file(config)
@@ -103,7 +107,7 @@ if (interactive()) readline("Press ENTER to start processing of data: ")
 chrLabels <- sprintf("chr%s", chrs)
 
 ## Note that the generated *.mpileup files are very large.
-res <- mpileup(bams, fa=fa, chromosomes=chrLabels, verbose=-10)
+res <- mpileup(bams, fa=fa, chromosomes=chrLabels, verbose=-20)
 print(res)
 
 mps <- MPileupFileSet(res)

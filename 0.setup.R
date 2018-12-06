@@ -3,7 +3,7 @@ createLink(target = "/home/shared/cbc/annotationData")
 
 path <- "bamData/CostelloP_2015-Exome,bwa,realigned,rmDups,recal/"
 mkdirs(path)
-createLink(link = file.path(path, "Homo_sapiens"), target = "/costellolab/jocostello/LG3/exomes_recal")
+createLink(link = file.path(path, "Homo_sapiens"), target = "/costellolab/data1/jocostello/LG3/exomes_recal")
 
 mkdirs("sampleData")
 mkdirs("seqzData")

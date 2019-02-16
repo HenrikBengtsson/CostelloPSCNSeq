@@ -1,0 +1,35 @@
+Pipeline: CostelloJ-PSCN-Seq
+============================
+
+Version: 0.4.2-9000 [2019-02-16]
+
+SIGNIFICANT CHANGES:
+
+ * Pipeline updated to use R 3.5.2.
+
+NEW FEATURES:
+
+ * 1.mpileup.R now asserts that BAM files have been indexed, that
+   is, there exist corresponding BAI files.
+
+
+Version: 0.4.2 [2018-12-05]
+
+Version: 0.4.1 [2018-05-28]
+
+Version: 0.4.0 [2018-05-24]
+
+Version: 0.3.1 [2018-05-12]
+
+Version: 0.3.0 [2017-06-26]
+
+Version: 0.2.3 [2017-06-19]
+
+Version: 0.2.2 [2017-02-28]
+
+Version: 0.2.1 [2016-11-02]
+
+Version: 0.2.0 [2016-11-02]
+
+
+

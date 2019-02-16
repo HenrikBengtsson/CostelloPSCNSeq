@@ -142,7 +142,7 @@ for (ii in seq_along(all_samples)) {
       fits <- resolve(fits, value = TRUE)
       ## Coerce to list
       fits <- as.list(fits)
-      fit <- Reduce(PSCBS::append, fits)
+      fit <- do.call(c, fits)
       verbose && print(verbose, fit)
       fits <- NULL ## Not needed anymore
       

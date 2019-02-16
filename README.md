@@ -56,8 +56,8 @@ To process data via a TORQUE / PBS job scheduler using the [future.batchtools] p
 # Copy to project directory
 $ cp .future-configs/batchtools/.future.R .
 
-# Copy to home directory
-$ cp .future-configs/batchtools/.batchtools.torque.tmpl ~
+# Copy to project directory
+$ cp .future-configs/batchtools/batchtools.torque.tmpl ~
 
 # Install the future.batchtools package
 $ Rscript -e "install.packages('future.batchtools')"
@@ -69,8 +69,8 @@ You can verify that it works by trying the following in the project directory:
 > library("future")
 Using future plan:
 plan(list(samples = tweak(batchtools_torque, label = "sample", 
-    resources = list(vmem = "2gb")), chromosomes = tweak(batchtools_torque, 
-    label = "chr", resources = list(vmem = "5gb"))))
+    resources = list(vmem = "4gb")), chromosomes = tweak(batchtools_torque, 
+    label = "chr", resources = list(vmem = "8gb"))))
 ```
 This confirms that as soon as the [future] package is loaded, it will source the `.future.R` script which in turn will setup the parallel settings.  It is `.future.R` that reports on the future plan used.
 

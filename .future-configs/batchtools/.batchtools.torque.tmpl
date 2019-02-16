@@ -6,7 +6,7 @@
 ######################################################################
 
 ## Job name:
-#PBS -N <%= job.hash %>
+#PBS -N <%= if (exists("job.name", mode = "character")) job.name else job.hash %>
 
 ## Direct streams to logfile:
 #PBS -o <%= log.file %>
@@ -27,9 +27,12 @@
 
 module purge
 module load CBC
-module load r/3.4.4
+module load r/3.5.2
 module load samtools/1.3.1  ## 1.mpileup.R - critical
 module load python/2.7.9    ## 2.sequenza.R
+
+## Force single-threaded processing, e.g. data.table
+export OMP_NUM_THREADS=1
 
 ## Launch R and evaluated the batchtools R job
 Rscript -e 'batchtools::doJobCollection("<%= uri %>")'

@@ -2,7 +2,7 @@ organism: Homo_sapiens
 chromosomes: c(1:22, "X", "Y", "M")
 fasta: annotationData/organisms/Homo_sapiens/GRCh37,hg19/UCSC/hg19.fa
 gcbase: annotationData/organisms/Homo_sapiens/GRCh37,hg19/UCSC/hg19.gc50Base.txt.gz
-dataset: CostelloP_2015-Exome,bwa,realigned,rmDups,recal
+dataset: ZivE_2019-LatinaBC,bwa,realigned,rmDups,recal
 binsize: 100e3
 samples: sampleData/samples.tsv
 

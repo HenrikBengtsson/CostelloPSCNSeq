@@ -17,6 +17,8 @@ SOFTWARE QUALITY:
  * PBS scripts are now validated using ShellCheck.  Fixed a few
    potential issues but nothing that looked like bugs.
 
+ * R script are now validated to be parsable.
+ 
 
 Version: 0.4.2 [2018-12-05]
 

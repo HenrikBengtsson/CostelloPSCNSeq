@@ -9,8 +9,12 @@ if (!interactive()) {
 options("R.filesets::onRemapping" = "ignore")
 
 message("* Assertions")
-ver %<-% attr(findSamtools(), "version")
-stopifnot(ver < "1.4")
+assert %<-% {
+  ver <- attr(findSamtools(), "version")
+  print(ver)
+  stopifnot(ver < "1.4")
+} %label% "samtools-version"
+print(assert)
 
 message("* Loading configuration")
 config <- cmdArg(config = "config.yml")
@@ -70,6 +74,8 @@ bams <- setFullNamesTranslator(bams, function(name, ...) {
   name <- gsub(".bwa.realigned.rmDups.recal.bam", "", name, fixed=TRUE)
   name <- gsub(".bwa.realigned.rmDups.bam", "", name, fixed=TRUE)
   name <- gsub(".bam", "", name, fixed=TRUE)
+  name <- gsub("_merged", "", name, fixed=TRUE)
+  name <- gsub("_[ACGT]{8}_L[0-9]{3}", "", name)
   name
 })
 print(bams)
@@ -91,6 +97,9 @@ stopifnot(length(keep) > 0)
 bams <- bams[keep]
 print(bams)
 stopifnot(length(bams) > 0)
+
+## Assert that all BAMs have been indexed
+stopifnot(all(vapply(bams, FUN = hasIndex, FUN.VALUE = FALSE)))
 
 message("* Loading all BAM files ... DONE")
 

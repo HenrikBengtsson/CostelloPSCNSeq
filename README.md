@@ -6,12 +6,12 @@ Parent-specific copy-number estimation pipeline.
 ## Requirements
 
 ### Required software
-This pipeline is implemented in [R] and requires R packages [aroma.seq] and [sequenza].  To install these packages and all of their dependencies, call the following from R:
+This pipeline is implemented in [R] and requires R packages [aroma.seq], [sequenza] (Favero et al. 2015), and [PSCBS] (Bengtsson et al. 2010, Olshen et al. 2011).  To install these packages and all of their dependencies, call the following from R:
 ```r
 > source("http://callr.org/install#sequenza")
 > source("http://callr.org/install#HenrikBengtsson/aroma.seq")
 ```
-In addition to the above R dependencies, the pipeline requires that [samtools] is on the `PATH`.
+In addition to the above R dependencies, the pipeline requires that [samtools] (Li et al. 2009) is on the `PATH`.
 
 
 ## Setup (once)
@@ -43,7 +43,7 @@ To process the above four steps via the Torque/PBS scheduler, use:
 $ qsub -d $(pwd) 1-4.submit_all.pbs
 ```
 
-This will in turn _submit_ the corresponding PBS scripts `1.mpileup.pbs`, `2.sequenza.pbs`, `3.pscbs.pbs`, and `4.reports.pbs` to the scheduler.  Those PBS scripts "freeze" software versions to R 3.4.4 and samtools 1.3.1.
+This will in turn _submit_ the corresponding PBS scripts `1.mpileup.pbs`, `2.sequenza.pbs`, `3.pscbs.pbs`, and `4.reports.pbs` to the scheduler.  Those PBS scripts "freeze" software versions to R 3.5.2 and samtools 1.3.1.
 
 
 
@@ -56,8 +56,8 @@ To process data via a TORQUE / PBS job scheduler using the [future.batchtools] p
 # Copy to project directory
 $ cp .future-configs/batchtools/.future.R .
 
-# Copy to home directory
-$ cp .future-configs/batchtools/.batchtools.torque.tmpl ~
+# Copy to project directory
+$ cp .future-configs/batchtools/batchtools.torque.tmpl ~
 
 # Install the future.batchtools package
 $ Rscript -e "install.packages('future.batchtools')"
@@ -69,8 +69,8 @@ You can verify that it works by trying the following in the project directory:
 > library("future")
 Using future plan:
 plan(list(samples = tweak(batchtools_torque, label = "sample", 
-    resources = list(vmem = "2gb")), chromosomes = tweak(batchtools_torque, 
-    label = "chr", resources = list(vmem = "5gb"))))
+    resources = list(vmem = "4gb")), chromosomes = tweak(batchtools_torque, 
+    label = "chr", resources = list(vmem = "8gb"))))
 ```
 This confirms that as soon as the [future] package is loaded, it will source the `.future.R` script which in turn will setup the parallel settings.  It is `.future.R` that reports on the future plan used.
 
@@ -89,10 +89,22 @@ Finally, if we try to look at the value of `x`;
 it will block until the job is finished and then its value will be printed. Here we see that the job was running on compute node n17.
 
 
+
+## References
+
+* Bengtsson H, Neuvial P, Speed TP. TumorBoost: Normalization of allele-specific tumor copy numbers from a single pair of tumor-normal genotyping microarrays, BMC Bioinformatics, 2010
+
+* Olshen AB, Bengtsson H, Neuvial P, Spellman PT, Olshen RA, Seshan VA. Parent-specific copy number in paired tumor-normal studies using circular binary segmentation, Bioinformatics, 2011
+
+* Favero F, Joshi T, Marquard AM, Birkbak NJ, Krzystanek M, Li Q, Szallasi Z and Eklund AC. Sequenza: allele-specific copy number and mutation profiles from tumor sequencing data, Annals of Oncology, 2015
+
+* Li H, Handsaker B, Wysoker A, Fennell T, Ruan J, Homer N, Marth G, Abecasis G, Durbin R, and 1000 Genome Project Data Processing Subgroup, The Sequence alignment/map (SAM) format and SAMtools. Bioinformatics, 2009
+
 [R]: https://www.r-project.org/
 [samtools]: http://www.htslib.org/
 [aroma.seq]: https://github.com/HenrikBengtsson/aroma.seq/
 [sequenza]: https://cran.r-project.org/package=sequenza
 [batchtools]: https://cran.r-project.org/package=batchtools
 [future]: https://cran.r-project.org/package=future
+[PSCBS]: https://cran.r-project.org/package=PSCBS
 [future.batchtools]: https://cran.r-project.org/package=future.batchtools

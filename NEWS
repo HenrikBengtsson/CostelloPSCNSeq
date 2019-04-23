@@ -1,7 +1,7 @@
 Pipeline: CostelloJ-PSCN-Seq
 ============================
 
-Version: 0.4.2-9000 [2019-02-16]
+Version: 0.4.2-9000 [2019-04-23]
 
 SIGNIFICANT CHANGES:
 
@@ -11,6 +11,11 @@ NEW FEATURES:
 
  * 1.mpileup.R now asserts that BAM files have been indexed, that
    is, there exist corresponding BAI files.
+
+SOFTWARE QUALITY:
+
+ * PBS scripts are now validated using ShellCheck.  Fixed a few
+   potential issues but nothing that looked like bugs.
 
 
 Version: 0.4.2 [2018-12-05]

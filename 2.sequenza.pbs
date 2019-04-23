@@ -2,7 +2,7 @@
 #PBS -N 2.sequenza
 #PBS -j oe
 
-cd $PBS_O_WORKDIR
+cd "$PBS_O_WORKDIR" || >&2 echo "ERROR: Failed to change directory: $PBS_O_WORKDIR"
 
 module purge
 module load CBC r/3.5.2

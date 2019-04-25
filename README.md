@@ -57,7 +57,7 @@ To process data via a TORQUE / PBS job scheduler using the [future.batchtools] p
 $ cp .future-configs/batchtools/.future.R .
 
 # Copy to project directory
-$ cp .future-configs/batchtools/batchtools.torque.tmpl ~
+$ cp .future-configs/batchtools/batchtools.torque.tmpl .
 
 # Install the future.batchtools package
 $ Rscript -e "install.packages('future.batchtools')"
@@ -78,7 +78,7 @@ Next, we can try to submit a job to the scheduler using these settings by:
 ```r
 > x %<-% Sys.info()[["nodename"]]
 ```
-In this step, future.batchtools will import the `.batchtools.torque.tmpl` file.  If it fails to locate that file, there will be an error.  If it succeeds, a batchtools job will be submitted to the job scheduler, cf. `qstat -u $USER`.
+In this step, future.batchtools will import the `batchtools.torque.tmpl` file in that we copied to project working directory.  If it fails to locate that file, there will be an error.  If it succeeds, a batchtools job will be submitted to the job scheduler - which can be seen when if calling `qstat -u $USER` in another shell.
 
 Finally, if we try to look at the value of `x`;
 ```r

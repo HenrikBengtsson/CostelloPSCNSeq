@@ -3,6 +3,11 @@
 
 ## Requirements
 
+### Required data
+
+This pipeline requires paired tumor-normal data.  This is because the allele-specific copy numbers are inferred from the allelic imbalance in the tumor at heterozygous SNPs.  The heterozygous SNPs are identified from the allelic signals in the matched normal.
+
+
 ### Required software
 
 This pipeline is implemented in [R] and requires R packages [aroma.seq], [sequenza] (Favero et al. 2015), and [PSCBS] (Bengtsson et al. 2010, Olshen et al. 2011).  To install these packages and all of their dependencies, call the following from R:

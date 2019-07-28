@@ -13,11 +13,13 @@ This pipeline requires paired tumor-normal data.  This is because the allele-spe
 This pipeline is implemented in [R] and requires R packages [aroma.seq], [sequenza] (Favero et al. 2015), and [PSCBS] (Bengtsson et al. 2010, Olshen et al. 2011).  To install these packages and all of their dependencies, call the following from R:
 
 ```r
-> source("https://callr.org/install#sequenza")
+> install.packages("https://cran.r-project.org/src/contrib/Archive/sequenza/sequenza_2.1.2.tar.gz")
 > source("https://callr.org/install#HenrikBengtsson/aroma.seq")
 ```
 
 In addition to the above R dependencies, the pipeline requires that [samtools] (Li et al. 2009) is on the `PATH`.
+
+**Important:** The pipeline does not work with sequenza (>= 3.0.0; 2019-05-09). Because of this, we need to install the older sequenza 2.1.2.
 
 
 ## Setup (once)
@@ -33,7 +35,7 @@ In addition to the above R dependencies, the pipeline requires that [samtools] (
 
 The following scripts should be run in order:
 
-* `Rscript 1.mpileup.R`
+* `Rscript 1.mpileup.R`    ## ~25 mins on the test tumor-normal pair
 * `Rscript 2.sequenza.R`
 * `Rscript 3.pscbs.R`
 * `Rscript 4.reports.R`
@@ -122,3 +124,4 @@ it will block until the job is finished and then its value will be printed. Here
 [future]: https://cran.r-project.org/package=future
 [PSCBS]: https://cran.r-project.org/package=PSCBS
 [future.batchtools]: https://cran.r-project.org/package=future.batchtools
+[TIPCC]: https://ucsf-ti.github.io/tipcc-web/

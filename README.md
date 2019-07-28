@@ -10,16 +10,18 @@ This pipeline requires paired tumor-normal data.  This is because the allele-spe
 
 ### Required software
 
-This pipeline is implemented in [R] and requires R packages [aroma.seq], [sequenza] (Favero et al. 2015), and [PSCBS] (Bengtsson et al. 2010, Olshen et al. 2011).  To install these packages and all of their dependencies, call the following from R:
+This pipeline is implemented in [R] and requires R packages [aroma.seq], [sequenza] (Favero et al. 2015), and [PSCBS] (Bengtsson et al. 2010, Olshen et al. 2011).  To install these packages and all of their dependencies _to the current working directory_, call the following from R:
 
 ```r
-> install.packages("https://cran.r-project.org/src/contrib/Archive/sequenza/sequenza_2.1.2.tar.gz")
-> source("https://callr.org/install#HenrikBengtsson/aroma.seq")
+if (!requireNamespace("pak")) install.packages("pak")
+pak:::proj_create()
+pak::pkg_install("sequenza@2.1.2")
+pak::pkg_install("HenrikBengtsson/aroma.seq@develop")
 ```
 
 In addition to the above R dependencies, the pipeline requires that [samtools] (Li et al. 2009) is on the `PATH`.
 
-**Important:** The pipeline does not work with sequenza (>= 3.0.0; 2019-05-09). Because of this, we need to install the older sequenza 2.1.2.
+**Important:** The pipeline does not work with sequenza (>= 3.0.0; 2019-05-09). This is the reason why we install sequenza 2.1.2. The use of `pak:::proj_create()` causes all packages to be installed to `./r-packages/`, which avoids clashing the R package library that is typically installed under `~/R/`.
 
 
 ## Setup (once)

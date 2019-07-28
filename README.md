@@ -16,7 +16,7 @@ This pipeline is implemented in [R] and requires R packages [aroma.seq], [sequen
 if (!requireNamespace("pak")) install.packages("pak")
 pak:::proj_create()
 pak::pkg_install("sequenza@2.1.2")
-pak::pkg_install("HenrikBengtsson/aroma.seq@develop")
+pak::pkg_install("HenrikBengtsson/aroma.seq")
 pak::pkg_install("HenrikBengtsson/CostelloPSCNSeq@develop")
 ```
 

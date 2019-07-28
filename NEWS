@@ -7,7 +7,9 @@ SIGNIFICANT CHANGES:
 
  * Pipeline updated to use R 3.6.1.
 
- * ...
+DEPRECATION & DEFUNCT:
+
+ * Dropped support for BatchJobs; use batchtools instead.
 
 
 Version: 0.5.1 [2019-07-28]

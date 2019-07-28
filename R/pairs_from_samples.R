@@ -1,3 +1,4 @@
+#' @importFrom gtools mixedorder
 pairs_from_samples <- function(samples) {
   mixedorder <- gtools::mixedorder
   

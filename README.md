@@ -92,13 +92,13 @@ it will block until the job is finished and then its value will be printed. Here
 
 ## References
 
-* Bengtsson H, Neuvial P, Speed TP. TumorBoost: Normalization of allele-specific tumor copy numbers from a single pair of tumor-normal genotyping microarrays, BMC Bioinformatics, 2010
+* Bengtsson H, Neuvial P, Speed TP. TumorBoost: Normalization of allele-specific tumor copy numbers from a single pair of tumor-normal genotyping microarrays, BMC Bioinformatics, 2010. DOI: [10.1186/1471-2105-11-245](https://doi.org/10.1186%2F1471-2105-11-245). PMID: [20462408](https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&cmd=prlinks&retmode=ref&id=20462408), PMCID: [PMC2894037](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2894037/).
 
-* Olshen AB, Bengtsson H, Neuvial P, Spellman PT, Olshen RA, Seshan VA. Parent-specific copy number in paired tumor-normal studies using circular binary segmentation, Bioinformatics, 2011
+* Olshen AB, Bengtsson H, Neuvial P, Spellman PT, Olshen RA, Seshan VA. Parent-specific copy number in paired tumor-normal studies using circular binary segmentation, Bioinformatics, 2011. DOI: [10.1093/bioinformatics/btr329](https://doi.org/10.1093%2Fbioinformatics%2Fbtr329). PMID: [21666266](https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi?dbfrom=pubmed&cmd=prlinks&retmode=ref&id=21666266). PMCID: [PMC3137217](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3137217/).
 
-* Favero F, Joshi T, Marquard AM, Birkbak NJ, Krzystanek M, Li Q, Szallasi Z and Eklund AC. Sequenza: allele-specific copy number and mutation profiles from tumor sequencing data, Annals of Oncology, 2015
+* Favero F, Joshi T, Marquard AM, Birkbak NJ, Krzystanek M, Li Q, Szallasi Z and Eklund AC. Sequenza: allele-specific copy number and mutation profiles from tumor sequencing data, Annals of Oncology, 2015. DOI: [10.1093/annonc/mdu479](https://dx.doi.org/10.1093%2Fannonc%2Fmdu479), PMID: [25319062](https://www.ncbi.nlm.nih.gov/pubmed/25319062), PMCID: [PMC4269342](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4269342/)
 
-* Li H, Handsaker B, Wysoker A, Fennell T, Ruan J, Homer N, Marth G, Abecasis G, Durbin R, and 1000 Genome Project Data Processing Subgroup, The Sequence alignment/map (SAM) format and SAMtools. Bioinformatics, 2009
+* Li H, Handsaker B, Wysoker A, Fennell T, Ruan J, Homer N, Marth G, Abecasis G, Durbin R, and 1000 Genome Project Data Processing Subgroup, The Sequence alignment/map (SAM) format and SAMtools. Bioinformatics, 2009. DOI: [10.1093/bioinformatics/btp352](https://dx.doi.org/10.1093%2Fbioinformatics%2Fbtp352), PMID: [19505943](https://www.ncbi.nlm.nih.gov/pubmed/19505943), PMCID: [PMC2723002](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2723002/)
 
 [R]: https://www.r-project.org/
 [samtools]: http://www.htslib.org/

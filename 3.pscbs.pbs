@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #PBS -N 3.pscbs
 #PBS -j oe
 

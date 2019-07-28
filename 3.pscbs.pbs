@@ -8,5 +8,5 @@ module purge
 module load CBC r/3.6.1
 echo "Rscript: $(Rscript --version)"
 
-Rscript 3.pscbs.R
+Rscript inst/scripts/3.pscbs.R
 

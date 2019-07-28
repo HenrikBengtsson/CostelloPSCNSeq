@@ -8,4 +8,4 @@ module purge
 module load CBC r/3.6.1
 echo "Rscript: $(Rscript --version)"
 
-Rscript 2.sequenza.R
+Rscript inst/scripts/2.sequenza.R

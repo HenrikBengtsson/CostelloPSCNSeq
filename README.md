@@ -38,12 +38,14 @@ In addition to the above R dependencies, the pipeline requires that [samtools] (
 
 The following scripts should be run in order:
 
-* `Rscript 1.mpileup.R`    ## ~25 mins on the test tumor-normal pair
-* `Rscript 2.sequenza.R`   ## ~60 mins on the test tumor-normal pair
-* `Rscript 3.pscbs.R`      ##  ~5 mins on the test tumor-normal pair
-* `Rscript 4.reports.R`    ##  ~2 mins on the test tumor-normal pair
+```sh
+Rscript inst/scripts/1.mpileup.R   ## ~25 mins on the test tumor-normal pair
+Rscript inst/scripts/2.sequenza.R  ## ~60 mins on the test tumor-normal pair
+Rscript inst/scripts/3.pscbs.R     ##  ~5 mins on the test tumor-normal pair
+Rscript inst/scripts/4.reports.R   ##  ~2 mins on the test tumor-normal pair
+```
 
-You may want to adjust [`./config.yml`](https://github.com/HenrikBengtsson/Costello-PSCN-Seq/blob/master/config.yml) to process other data sets. Alternatively, you can specify another file that this default via command-line option `--config`, e.g. `Rscript 1.mpileup.R --config=config_set_a.yml`.
+You may want to adjust [`inst/config.yml`](https://github.com/HenrikBengtsson/Costello-PSCN-Seq/blob/master/inst/config.yml) to process other data sets. Alternatively, you can specify another file that this default via command-line option `--config`, e.g. `Rscript inst/scripts/1.mpileup.R --config=config_set_a.yml`.
 
 
 ### Data processing via scheduler
@@ -51,10 +53,10 @@ You may want to adjust [`./config.yml`](https://github.com/HenrikBengtsson/Coste
 To process the above four steps via the Torque/PBS scheduler, use:
 
 ```sh
-$ qsub -d $(pwd) 1-4.submit_all.pbs
+$ qsub -d $(pwd) inst/scripts/1-4.submit_all.pbs
 ```
 
-This will in turn _submit_ the corresponding PBS scripts `1.mpileup.pbs`, `2.sequenza.pbs`, `3.pscbs.pbs`, and `4.reports.pbs` to the scheduler.  Those PBS scripts "freeze" software versions to R 3.5.2 and samtools 1.3.1.
+This will in turn _submit_ the corresponding PBS scripts `1.mpileup.pbs`, `2.sequenza.pbs`, `3.pscbs.pbs`, and `4.reports.pbs` to the scheduler.  Those PBS scripts are located in `inst/scripts/` and "freeze" software versions to R 3.6.1 and samtools 1.3.1.
 
 
 
@@ -66,10 +68,10 @@ To process data via a TORQUE / PBS job scheduler using the [future.batchtools] p
 
 ```sh
 # Copy to project directory
-$ cp .future-configs/batchtools/.future.R .
+$ cp inst/future-configs/batchtools/.future.R .
 
 # Copy to project directory
-$ cp .future-configs/batchtools/batchtools.torque.tmpl .
+$ cp inst/future-configs/batchtools/batchtools.torque.tmpl .
 
 # Install the future.batchtools package
 $ Rscript -e "install.packages('future.batchtools')"

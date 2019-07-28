@@ -1,3 +1,4 @@
+#' @importFrom R.utils seqToHumanReadable
 seqToHumanReadable2 <- function(idxs, collapse=", ") {
   x <- suppressWarnings(as.numeric(idxs))
   nas <- is.na(x)

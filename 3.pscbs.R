@@ -1,10 +1,8 @@
 ## USAGE:
 ## qcmd --exec Rscript 3.pscbs.R --config=config.yml --samples=sampleData/20161014_samplesforPSCN.txt
 
-library("R.utils")
-source("R/pairs_from_samples.R")
-source("R/pscnseq_pscbs.R")
-
+library(R.utils)
+library(CostelloPSCNSeq)
 
 if (!interactive()) mprint(future::sessionDetails())
 
@@ -21,7 +19,7 @@ chrs <- cmdArg(chrs = eval(parse(text = config_data$chromosomes)))
 samples <- cmdArg(samples = config_data$samples)
 binSize <- cmdArg(binsize = eval(parse(text = config_data$binsize)))
 
-fitList <- pscnseq_pscbs(dataset, organism = organism, chrs = chrs, samples = samples, binSize = binSize)
+fitList <- pscnseq_pscbs(dataset, organism = organism, chrs = chrs, samples = samples, binSize = binSize, verbose = TRUE)
 print(fitList)
 
 if (!interactive()) mprint(future::sessionDetails())

@@ -1,14 +1,14 @@
-#' @importFrom R.utils Arguments mprintf mstr hpaste
-#' @importFrom R.filesets getNames getTags, readDataFrame fullname getFullNames setFullNamesTranslator directoryStructure<-
-#' @importFrom aroma.seq findSamtools BamDataSet hasIndex MPileupFileSet mpileup
+#' @importFrom R.utils Arguments mprintf mstr hpaste isGzipped less
+#' @importFrom R.filesets getNames getTags readDataFrame fullname getFullNames setFullNamesTranslator getPathnames
+#' @importFrom aroma.core isCompatibleWith
+#' @importFrom aroma.seq directoryStructure<- findSamtools BamDataSet hasIndex MPileupFileSet mpileup MPileupFileSet getSeqNames
+#' @importFrom utils str
 #'
 #' @export
-pscnseq_mpileup <- function(dataset, organism, chrs, samples) {
-  readDataFrame <- R.filesets::readDataFrame
-  fullname <- R.filesets::fullname
-  library(R.utils)
-  library(utils)
-  library(aroma.seq)
+pscnseq_mpileup <- function(dataset, organism, chrs, samples, fasta, gcbase, bam_pattern = NULL, verbose = FALSE) {
+  assert <- NULL ## To please R CMD check
+  
+  verbose <- Arguments$getVerbose(verbose)
   
   message("* Assertions")
   assert %<-% {
@@ -32,10 +32,10 @@ pscnseq_mpileup <- function(dataset, organism, chrs, samples) {
   ## Annotation data
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
   message("* Loading annotation data files ...")
-  fa <- FastaReferenceFile(config_data$fasta)
+  fa <- FastaReferenceFile(fasta)
   print(fa)
   stopifnot(!isGzipped(fa))
-  gc <- GcBaseFile(config_data$gcbase)
+  gc <- GcBaseFile(gcbase)
   print(gc)
   
   ## IMPORTANT: Sequenza requires that chromosome names in GC file
@@ -53,9 +53,6 @@ pscnseq_mpileup <- function(dataset, organism, chrs, samples) {
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
   message("* Loading all BAM files ...")
   
-  dataset <- config_data$dataset
-  organism <- config_data$organism
-  bam_pattern <- config_data$bam_pattern
   if (is.null(bam_pattern)) bam_pattern <- ".bwa.realigned.rmDups(|.recal)(|.bam)$"
   path <- file.path("bamData", dataset, organism)
   bams <- BamDataSet$byPath(path, recursive=TRUE, pattern=bam_pattern)
@@ -108,7 +105,7 @@ pscnseq_mpileup <- function(dataset, organism, chrs, samples) {
   chrLabels <- sprintf("chr%s", chrs)
   
   ## Note that the generated *.mpileup files are very large.
-  res <- mpileup(bams, fa=fa, chromosomes=chrLabels, verbose=-20)
+  res <- mpileup(bams, fa=fa, chromosomes=chrLabels, verbose=less(verbose, 20))
   print(res)
   
   mps <- MPileupFileSet(res)

@@ -1,23 +1,17 @@
 #' @importFrom future %<-% %label% resolve
 #' @importFrom listenv listenv
-#' @importFrom R.utils Arguments mprintf mstr hpaste
-#' @importFrom utils file_test
+#' @importFrom R.utils Arguments mprintf mstr hpaste less
+#' @importFrom utils packageVersion file_test
 #' @importFrom R.filesets readDataFrame fullname getFullNames
-#' @importFrom aroma.seq FastaReferenceFile GcBaseFile MPileupFileSet isCompatibleWith getSeqNames pileup2seqz
+#' @importFrom aroma.core isCompatibleWith
+#' @importFrom aroma.seq FastaReferenceFile GcBaseFile MPileupFileSet getSeqNames pileup2seqz
 #'
 #' @export
-pscnseq_sequenza <- function(dataset, organism, chrs, samples) {
-  `%<-%` <- future::`%<-%`
-  `%label%` <- future::`%label%`
-  resolve <- future::resolve
-  listenv <- listenv::listenv
-  readDataFrame <- R.filesets::readDataFrame
-  fullname <- R.filesets::fullname
-  library(R.utils)
-  library(utils)
-  library(aroma.seq)
+pscnseq_sequenza <- function(dataset, organism, chrs, samples, fasta, gcbase, verbose = FALSE) {
   stopifnot(packageVersion("sequenza") <= "2.1.2")
-  
+
+  verbose <- Arguments$getVerbose(verbose)
+
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
   ## Sample data
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -30,9 +24,9 @@ pscnseq_sequenza <- function(dataset, organism, chrs, samples) {
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
   ## Annotation data
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  fa <- FastaReferenceFile(config_data$fasta)
+  fa <- FastaReferenceFile(fasta)
   print(fa)
-  gc <- GcBaseFile(config_data$gcbase)
+  gc <- GcBaseFile(gcbase)
   print(gc)
   
   ## IMPORTANT: Sequenza requires that chromosome names in GC file
@@ -143,7 +137,8 @@ pscnseq_sequenza <- function(dataset, organism, chrs, samples) {
       ## Normal always comes before tumor!
       pus <- list(pusN, pusT)
       seqz <- pileup2seqz(pus, gc=gc, sampleName=sampleName,
-                          dataset=dataset, organism=organism, verbose=-20)
+                          dataset=dataset, organism=organism,
+			  verbose=less(verbose, 20))
       print(seqz)
       seqz
     } %label% label

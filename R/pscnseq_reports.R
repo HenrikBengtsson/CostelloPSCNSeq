@@ -6,15 +6,8 @@
 #' @importFrom R.filesets readDataFrame
 #'
 #' @export
-pscnseq_reports <- function(dataset, organism, chrs, samples) {
-  `%<-%` <- future::`%<-%`
-  `%label%` <- future::`%label%`
-  resolve <- future::resolve
-  listenv <- listenv::listenv
-  readDataFrame <- R.filesets::readDataFrame
-  library(R.utils)
-  library(utils)
-  library("PSCBS")
+pscnseq_reports <- function(dataset, organism, chrs, samples, verbose = FALSE) {
+  verbose <- Arguments$getVerbose(verbose)
   
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
   ## Annotation data

@@ -1,9 +1,11 @@
-Pipeline: CostelloJ-PSCN-Seq
-============================
+Package: CostelloJPSCNSeq
+=========================
 
 Version: 0.5.9-9000 [2019-07-28]
 
 SIGNIFICANT CHANGES:
+
+ * Turned pipeline scripts into an R package.
 
  * Pipeline updated to use R 3.6.1.
 

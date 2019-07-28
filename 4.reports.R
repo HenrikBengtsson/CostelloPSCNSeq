@@ -2,8 +2,7 @@
 ## qcmd --exec Rscript 4.reports.R --config=config.yml --samples=sampleData/20161014_samplesforPSCN.txt
 
 library(R.utils)
-source("R/pairs_from_samples.R")
-source("R/pscnseq_reports.R")
+library(CostelloPSCNSeq)
 
 if (!interactive()) mprint(future::sessionDetails())
 
@@ -19,7 +18,7 @@ organism <- cmdArg(organism = config_data$organism)
 chrs <- cmdArg(chrs = eval(parse(text = config_data$chromosomes)))
 samples <- cmdArg(samples = config_data$samples)
 
-reports <- pscnseq_reports(dataset, organism = organism, chrs = chrs, samples = samples)
+reports <- pscnseq_reports(dataset, organism = organism, chrs = chrs, samples = samples, verbose = TRUE)
 print(reports)
 
 if (!interactive()) mprint(future::sessionDetails())

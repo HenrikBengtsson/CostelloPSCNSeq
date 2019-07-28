@@ -1,23 +1,14 @@
 #' @importFrom future %<-% %label% resolve
 #' @importFrom listenv listenv
-#' @importFrom R.utils Arguments isFile saveObject mprintf mstr hpaste seqToHumanReadable cat enter enterf exit
+#' @importFrom R.utils Arguments isFile saveObject printf mprintf mstr hpaste seqToHumanReadable cat enter enterf exit
 #' @importFrom utils file_test
 #' @importFrom R.filesets readDataFrame sortBy
 #' @importFrom aroma.seq SeqzFileSet
-#' @importFrom PSCBS segmentByPairedPSCBS normalizeTotalCNs
+#' @importFrom PSCBS segmentByPairedPSCBS normalizeTotalCNs getChromosomes
 #'
 #' @export
-pscnseq_pscbs <- function(dataset, organism, chrs, samples, binSize) {
-  `%<-%` <- future::`%<-%`
-  `%label%` <- future::`%label%`
-  resolve <- future::resolve
-  listenv <- listenv::listenv
-  readDataFrame <- R.filesets::readDataFrame
-  sortBy <- R.filesets::sortBy
-  library(R.utils)
-  library(utils)
-  library(aroma.seq)
-  library(PSCBS)
+pscnseq_pscbs <- function(dataset, organism, chrs, samples, binSize, verbose = FALSE) {
+  verbose <- Arguments$getVerbose(verbose)
   
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
   ## Sample data
@@ -33,8 +24,6 @@ pscnseq_pscbs <- function(dataset, organism, chrs, samples, binSize) {
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
   ## Overview
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  dataset <- config_data$dataset
-  organism <- config_data$organism
   chrs[chrs == "X"] <- 23
   chrs[chrs == "Y"] <- 24
   chrs[chrs == "M"] <- 25
@@ -146,7 +135,7 @@ pscnseq_pscbs <- function(dataset, organism, chrs, samples, binSize) {
         ## Assert all chromosomes have been processed
         missing <- setdiff(chrs, getChromosomes(fit))
         if (length(missing) > 0) {
-          throw(sprintf("Sanity check failure: Some chromosomes were not processed for sample %s: %s", sQuote(sample), paste(missing, collapse=", ")))
+          stop(sprintf("Sanity check failure: Some chromosomes were not processed for sample %s: %s", sQuote(sample), paste(missing, collapse=", ")))
         }
   
         verbose && cat(verbose, "PSCBS total copy-number normalization:")

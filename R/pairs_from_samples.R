@@ -1,7 +1,5 @@
 #' @importFrom gtools mixedorder
 pairs_from_samples <- function(samples) {
-  mixedorder <- gtools::mixedorder
-  
   patients <- sort(unique(samples$Patient_ID))
 ##  mprintf("Patients: [%d] %s\n", length(patients), hpaste(sQuote(patients)))
   

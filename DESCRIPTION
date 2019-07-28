@@ -1,0 +1,30 @@
+Package: CostelloPSCNSeq
+Version: 0.5.9-9000
+Depends:
+    R (>= 3.3.1),
+    R.utils,
+    R.filesets,
+    aroma.seq
+Imports:   
+    utils,
+    future,
+    listenv,
+    gtools,
+    R.cache,
+    aroma.core,
+    PSCBS
+Suggests:
+    R.rsp
+Title: Parent-Specific Copy-Number Estimation Pipeline using HT-Seq Data
+Authors@R: c(person("Henrik", "Bengtsson", role=c("aut", "cre", "cph"),
+                                          email = "henrikb@braju.com"))
+Description: Parent-specific copy-number estimation form HT-Seq data taylored to the UCSF Costello Lab.
+License: LGPL (>= 2.1)
+LazyLoad: TRUE
+URL: https://github.com/HenrikBengtsson/Costello-PSCN-Seq
+BugReports: https://github.com/HenrikBengtsson/Costello-PSCN-Seq/issues
+RoxygenNote: 6.1.1
+Roxygen: list(markdown = TRUE)
+Remotes:
+    HenrikBengtsson/aroma.seq
+    

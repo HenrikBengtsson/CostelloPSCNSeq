@@ -1,7 +1,11 @@
 Pipeline: CostelloJ-PSCN-Seq
 ============================
 
-Version: 0.5.1-9000 [2019-07-28]
+Version: 0.5.9-9000 [2019-07-28]
+
+SIGNIFICANT CHANGES:
+
+ * Pipeline updated to use R 3.6.1.
 
  * ...
 

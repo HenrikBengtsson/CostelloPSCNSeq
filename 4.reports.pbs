@@ -5,7 +5,7 @@
 cd "$PBS_O_WORKDIR" || >&2 echo "ERROR: Failed to change directory: $PBS_O_WORKDIR"
 
 module purge
-module load CBC r/3.5.2
+module load CBC r/3.6.1
 echo "Rscript: $(Rscript --version)"
 
 Rscript 4.reports.R

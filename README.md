@@ -36,9 +36,9 @@ In addition to the above R dependencies, the pipeline requires that [samtools] (
 The following scripts should be run in order:
 
 * `Rscript 1.mpileup.R`    ## ~25 mins on the test tumor-normal pair
-* `Rscript 2.sequenza.R`
-* `Rscript 3.pscbs.R`
-* `Rscript 4.reports.R`
+* `Rscript 2.sequenza.R`   ## ~60 mins on the test tumor-normal pair
+* `Rscript 3.pscbs.R`      ##  ~5 mins on the test tumor-normal pair
+* `Rscript 4.reports.R`    ##  ~2 mins on the test tumor-normal pair
 
 You may want to adjust [`./config.yml`](https://github.com/HenrikBengtsson/Costello-PSCN-Seq/blob/master/config.yml) to process other data sets. Alternatively, you can specify another file that this default via command-line option `--config`, e.g. `Rscript 1.mpileup.R --config=config_set_a.yml`.
 

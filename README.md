@@ -39,13 +39,15 @@ In addition to the above R dependencies, the pipeline requires that [samtools] (
 The following scripts should be run in order:
 
 ```sh
-Rscript inst/scripts/1.mpileup.R   ## ~25 mins on the test tumor-normal pair
-Rscript inst/scripts/2.sequenza.R  ## ~60 mins on the test tumor-normal pair
-Rscript inst/scripts/3.pscbs.R     ##  ~5 mins on the test tumor-normal pair
-Rscript inst/scripts/4.reports.R   ##  ~2 mins on the test tumor-normal pair
+Rscript -e "CostelloPSCNSeq::pscnseq(what='mpileup', verbose=TRUE)"  # ~25 min
+Rscript -e "CostelloPSCNSeq::pscnseq(what='sequenza', verbose=TRUE)" # ~60 min
+Rscript -e "CostelloPSCNSeq::pscnseq(what='pscbs', verbose=TRUE)"    #  ~5 min
+Rscript -e "CostelloPSCNSeq::pscnseq(what='reports', verbose=TRUE)"  #  ~2 min
 ```
 
-You may want to adjust [`inst/config.yml`](https://github.com/HenrikBengtsson/Costello-PSCN-Seq/blob/master/inst/config.yml) to process other data sets. Alternatively, you can specify another file that this default via command-line option `--config`, e.g. `Rscript inst/scripts/1.mpileup.R --config=config_set_a.yml`.
+_Comment_: The timings listed are typical run times for our test tumor-normal sample.
+
+You may want to adjust [`inst/config.yml`](https://github.com/HenrikBengtsson/Costello-PSCN-Seq/blob/master/inst/config.yml) to process other data sets. Alternatively, you can specify another file that this default via command-line option `--config`, e.g. `Rscript -e "CostelloPSCNSeq::pscnseq(what='mpileup', verbose=TRUE)" --config=config_set_a.yml`.
 
 
 ### Data processing via scheduler

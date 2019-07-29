@@ -8,5 +8,6 @@ module purge
 module load CBC r/3.6.1
 echo "Rscript: $(Rscript --version)"
 
-Rscript inst/scripts/3.pscbs.R
+Rscript -e "CostelloPSCNSeq::pscnseq(what='pscbs', verbose=TRUE)"
+
 

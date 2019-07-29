@@ -64,5 +64,5 @@ pscnseq <- function(what = c("mpileup", "sequenza"), session_details = interacti
     mprint(sessionDetails())
   }
 
-  invisible(res)
+  res
 }

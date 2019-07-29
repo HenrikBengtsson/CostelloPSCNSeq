@@ -12,7 +12,8 @@ Imports:
     gtools,
     R.cache,
     aroma.core,
-    PSCBS
+    PSCBS,
+    yaml
 Suggests:
     R.rsp
 Title: Parent-Specific Copy-Number Estimation Pipeline using HT-Seq Data

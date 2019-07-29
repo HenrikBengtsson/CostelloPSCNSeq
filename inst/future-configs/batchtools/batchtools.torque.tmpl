@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 ######################################################################
 # A batchtools launch script template for a Torque/PBS
 #
@@ -16,8 +16,6 @@
 
 ## Email on abort (a) and termination (e), but not when starting (b)
 #PBS -m ae
-
-##PBS -l walltime=00:05:00
 
 ## Resources needed:
 <% if (length(resources) > 0) {

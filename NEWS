@@ -1,9 +1,11 @@
 Package: CostelloJPSCNSeq
 =========================
 
-Version: 0.5.9-9000 [2019-07-28]
+Version: 0.5.9-9000 [2019-07-29]
 
 SIGNIFICANT CHANGES:
+
+ * Add master function pscnseq().
 
  * Turned pipeline scripts into an R package.
 

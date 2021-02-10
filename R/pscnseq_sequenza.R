@@ -146,7 +146,7 @@ pscnseq_sequenza <- function(dataset, organism, chrs, samples, fasta, gcbase, ve
   
   print(Sys.time())
   
-  seqzList <- resolve(seqzList, value=TRUE)
+  seqzList <- resolve(seqzList, result = TRUE)
   print(Sys.time())
   
   for (ii in seq_along(seqzList)) {

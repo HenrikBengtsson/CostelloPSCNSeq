@@ -1,11 +1,11 @@
 Package: CostelloPSCNSeq
-Version: 0.5.9-9000
+Version: 0.5.9-9001
 Depends:
     R (>= 3.6.0),
     R.utils,
     R.filesets,
     aroma.seq
-Imports:   
+Imports: 
     utils,
     future,
     listenv,
@@ -24,8 +24,7 @@ License: LGPL (>= 2.1)
 LazyLoad: TRUE
 URL: https://github.com/HenrikBengtsson/Costello-PSCN-Seq
 BugReports: https://github.com/HenrikBengtsson/Costello-PSCN-Seq/issues
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 Remotes:
     HenrikBengtsson/aroma.seq
-    

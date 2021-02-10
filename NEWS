@@ -1,7 +1,7 @@
 Package: CostelloJPSCNSeq
 =========================
 
-Version: 0.5.9-9000 [2019-07-29]
+Version: 0.5.9-9001 [2021-02-10]
 
 SIGNIFICANT CHANGES:
 
@@ -10,6 +10,10 @@ SIGNIFICANT CHANGES:
  * Turned pipeline scripts into an R package.
 
  * Pipeline updated to use R 3.6.1.
+
+BUG FIXES:
+
+ * Argument 'value' for future::resolve() was deprecated in favor of 'result'.
 
 DEPRECATION & DEFUNCT:
 

@@ -125,7 +125,7 @@ pscnseq_pscbs <- function(dataset, organism, chrs, samples, binSize, verbose = F
         verbose && print(verbose, fits)
       
         ## Since 'fits' consists of futures, we'll collect here
-        fits <- resolve(fits, value = TRUE)
+        fits <- resolve(fits, result = TRUE)
         ## Coerce to list
         fits <- as.list(fits)
         fit <- do.call(c, fits)
@@ -150,12 +150,12 @@ pscnseq_pscbs <- function(dataset, organism, chrs, samples, binSize, verbose = F
     } ## if (isFile(pathnameF))
   
     ## Have at most 10 jobs on the cluster at any time
-    if (ii %% 10 == 0) resolve(fitList, value = TRUE)
+    if (ii %% 10 == 0) resolve(fitList, result = TRUE)
     verbose && exit(verbose)
   } ## for (ii ...)
   
   ## Resolve futures and gather their values
-  fitList <- resolve(fitList, value = TRUE)
+  fitList <- resolve(fitList, result = TRUE)
   
   ## Vectorize
   fitList <- unlist(fitList)

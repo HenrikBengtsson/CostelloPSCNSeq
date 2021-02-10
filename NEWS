@@ -11,6 +11,11 @@ SIGNIFICANT CHANGES:
 
  * Pipeline updated to use R 3.6.1.
 
+DOCUMENTATION:
+
+ * Added help pages for pscnseq(), pscnseq_mpileup(), pscnseq_pscbs(),
+   pscnseq_sequenza(), and pscnseq_reports().
+   
 BUG FIXES:
 
  * Argument 'value' for future::resolve() was deprecated in favor of 'result'.

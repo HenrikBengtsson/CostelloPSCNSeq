@@ -1,3 +1,20 @@
+#' Produces Copy-Number Summary Reports in PDF
+#'
+#' @param dataset (character) The name of the dataset as on file.
+#'
+#' @param organism (character) The name of the organism as on file.
+#'
+#' @param chrs (character vector) The name of the chromosomes to be processed,
+#' e.g. `c("1", "2", "X")`.
+#'
+#' @param samples (character) Pathname to a tab-delimited sample specification
+#' file, typically named \file{*.tsv}, e.g. \file{samples.tsv}.
+#'
+#' @param verbose (logical) If TRUE, then verbose output is produced,
+#' otherwise not.
+#'
+#' @return (character vector) Pathnames to PDF files.
+#'
 #' @importFrom future %<-% %label% resolve
 #' @importFrom listenv listenv
 #' @importFrom R.utils Arguments isFile loadObject mprintf mstr hpaste seqToHumanReadable cat enter exit

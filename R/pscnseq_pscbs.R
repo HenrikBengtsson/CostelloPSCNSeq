@@ -1,3 +1,27 @@
+#' Runs Parent-Specific Copy-Number Segmentation (PSCBS) on a Dataset
+#'
+#' @param dataset (character) The name of the dataset as on file.
+#'
+#' @param organism (character) The name of the organism as on file.
+#'
+#' @param chrs (character vector) The name of the chromosomes to be processed,
+#' e.g. `c("1", "2", "X")`.
+#'
+#' @param samples (character) Pathname to a tab-delimited sample specification
+#' file, typically named \file{*.tsv}, e.g. \file{samples.tsv}.
+#'
+#' @param binSize (integer or numeric) The bin size (in basepairs) used for
+#' binning reads into bins that then are passed to the segmentation method.
+#'
+#' @param verbose (logical) If TRUE, then verbose output is produced,
+#' otherwise not.
+#'
+#' @return (character vector) Pathnames to \file{*,PairedPSCBS.rds} files
+#' holding [PSCBS::segmentByPairedPSCBS] results.
+#'
+#' @seealso
+#' This function uses [PSCBS::segmentByPairedPSCBS()].
+#'
 #' @importFrom future %<-% %label% resolve
 #' @importFrom listenv listenv
 #' @importFrom R.utils Arguments isFile saveObject printf mprintf mstr hpaste seqToHumanReadable cat enter enterf exit

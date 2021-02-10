@@ -1,5 +1,29 @@
-Pipeline: CostelloJ-PSCN-Seq
-============================
+Package: CostelloJPSCNSeq
+=========================
+
+Version: 0.6.0 [2021-02-10]
+
+SIGNIFICANT CHANGES:
+
+ * Add master function pscnseq().
+
+ * Turned pipeline scripts into an R package.
+
+ * Pipeline updated to use R 3.6.1.
+
+DOCUMENTATION:
+
+ * Added help pages for pscnseq(), pscnseq_mpileup(), pscnseq_pscbs(),
+   pscnseq_sequenza(), and pscnseq_reports().
+   
+BUG FIXES:
+
+ * Argument 'value' for future::resolve() was deprecated in favor of 'result'.
+
+DEPRECATION & DEFUNCT:
+
+ * Dropped support for BatchJobs; use batchtools instead.
+
 
 Version: 0.5.1 [2019-07-28]
 
@@ -50,6 +74,3 @@ Version: 0.2.2 [2017-02-28]
 Version: 0.2.1 [2016-11-02]
 
 Version: 0.2.0 [2016-11-02]
-
-
-

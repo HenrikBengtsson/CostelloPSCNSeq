@@ -10,14 +10,19 @@ This pipeline requires paired tumor-normal data.  This is because the allele-spe
 
 ### Required software
 
-This pipeline is implemented in [R] and requires R packages [aroma.seq], [sequenza] (Favero et al. 2015), and [PSCBS] (Bengtsson et al. 2010, Olshen et al. 2011).  To install these packages and all of their dependencies, call the following from R:
+This pipeline is implemented in [R] and requires R packages [aroma.seq], [sequenza] (Favero et al. 2015), and [PSCBS] (Bengtsson et al. 2010, Olshen et al. 2011).  To install these packages and all of their dependencies _to the current working directory_, call the following from R:
 
 ```r
-> source("https://callr.org/install#sequenza")
-> source("https://callr.org/install#HenrikBengtsson/aroma.seq")
+if (!requireNamespace("pak")) install.packages("pak")
+pak:::proj_create()
+pak::pkg_install("sequenza@2.1.2")
+pak::pkg_install("HenrikBengtsson/aroma.seq")
+pak::pkg_install("HenrikBengtsson/CostelloPSCNSeq@develop")
 ```
 
 In addition to the above R dependencies, the pipeline requires that [samtools] (Li et al. 2009) is on the `PATH`.
+
+**Important:** The pipeline does not work with sequenza (>= 3.0.0; 2019-05-09). This is the reason why we install sequenza 2.1.2. The use of `pak:::proj_create()` causes all packages to be installed to `./r-packages/`, which avoids clashing the R package library that is typically installed under `~/R/`.
 
 
 ## Setup (once)
@@ -33,12 +38,16 @@ In addition to the above R dependencies, the pipeline requires that [samtools] (
 
 The following scripts should be run in order:
 
-* `Rscript 1.mpileup.R`
-* `Rscript 2.sequenza.R`
-* `Rscript 3.pscbs.R`
-* `Rscript 4.reports.R`
+```sh
+Rscript -e "CostelloPSCNSeq::pscnseq(what='mpileup', verbose=TRUE)"  # ~25 min
+Rscript -e "CostelloPSCNSeq::pscnseq(what='sequenza', verbose=TRUE)" # ~60 min
+Rscript -e "CostelloPSCNSeq::pscnseq(what='pscbs', verbose=TRUE)"    #  ~5 min
+Rscript -e "CostelloPSCNSeq::pscnseq(what='reports', verbose=TRUE)"  #  ~2 min
+```
 
-You may want to adjust [`./config.yml`](https://github.com/HenrikBengtsson/Costello-PSCN-Seq/blob/master/config.yml) to process other data sets. Alternatively, you can specify another file that this default via command-line option `--config`, e.g. `Rscript 1.mpileup.R --config=config_set_a.yml`.
+_Comment_: The timings listed are typical run times for our test tumor-normal sample.
+
+You may want to adjust [`inst/config.yml`](https://github.com/HenrikBengtsson/Costello-PSCN-Seq/blob/master/inst/config.yml) to process other data sets. Alternatively, you can specify another file that this default via command-line option `--config`, e.g. `Rscript -e "CostelloPSCNSeq::pscnseq(what='mpileup', verbose=TRUE)" --config=config_set_a.yml`.
 
 
 ### Data processing via scheduler
@@ -46,10 +55,10 @@ You may want to adjust [`./config.yml`](https://github.com/HenrikBengtsson/Coste
 To process the above four steps via the Torque/PBS scheduler, use:
 
 ```sh
-$ qsub -d $(pwd) 1-4.submit_all.pbs
+$ qsub -d $(pwd) inst/scripts/1-4.submit_all.pbs
 ```
 
-This will in turn _submit_ the corresponding PBS scripts `1.mpileup.pbs`, `2.sequenza.pbs`, `3.pscbs.pbs`, and `4.reports.pbs` to the scheduler.  Those PBS scripts "freeze" software versions to R 3.5.2 and samtools 1.3.1.
+This will in turn _submit_ the corresponding PBS scripts `1.mpileup.pbs`, `2.sequenza.pbs`, `3.pscbs.pbs`, and `4.reports.pbs` to the scheduler.  Those PBS scripts are located in `inst/scripts/` and "freeze" software versions to R 3.6.1 and samtools 1.3.1.
 
 
 
@@ -61,10 +70,10 @@ To process data via a TORQUE / PBS job scheduler using the [future.batchtools] p
 
 ```sh
 # Copy to project directory
-$ cp .future-configs/batchtools/.future.R .
+$ cp inst/future-configs/batchtools/.future.R .
 
 # Copy to project directory
-$ cp .future-configs/batchtools/batchtools.torque.tmpl .
+$ cp inst/future-configs/batchtools/batchtools.torque.tmpl .
 
 # Install the future.batchtools package
 $ Rscript -e "install.packages('future.batchtools')"
@@ -122,3 +131,4 @@ it will block until the job is finished and then its value will be printed. Here
 [future]: https://cran.r-project.org/package=future
 [PSCBS]: https://cran.r-project.org/package=PSCBS
 [future.batchtools]: https://cran.r-project.org/package=future.batchtools
+[TIPCC]: https://ucsf-ti.github.io/tipcc-web/

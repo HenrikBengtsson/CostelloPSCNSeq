@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 ######################################################################
 # A batchtools launch script template for a Torque/PBS
 #
@@ -17,8 +17,6 @@
 ## Email on abort (a) and termination (e), but not when starting (b)
 #PBS -m ae
 
-##PBS -l walltime=00:05:00
-
 ## Resources needed:
 <% if (length(resources) > 0) {
   opts <- unlist(resources, use.names = TRUE)
@@ -29,7 +27,7 @@
 
 module purge
 module load CBC
-module load r/3.5.2
+module load r/3.6.1
 module load samtools/1.3.1  ## 1.mpileup.R - critical
 module load python/2.7.9    ## 2.sequenza.R
 

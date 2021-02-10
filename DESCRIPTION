@@ -1,5 +1,5 @@
 Package: CostelloPSCNSeq
-Version: 0.5.9-9001
+Version: 0.6.0
 Depends:
     R (>= 3.6.0),
     R.utils,

@@ -1,9 +1,17 @@
 Package: CostelloJPSCNSeq
 =========================
 
-Version: 0.6.0-9000 [2021-02-10]
+Version: 0.6.0-9000 [2021-02-13]
 
- * ...
+SIGNIFICANT CHANGES:
+
+ * Renamed argument 'binSize' for pscnseq_pscbs() to 'binsize'.
+
+NEW FEATURES:
+
+ * Made it easier to call pscnseq() from the command line, e.g.
+   'Rscript -e pscnseq --args --help' and
+   'Rscript -e pscnseq --args --config=/path/to/config.yml'.
 
 
 Version: 0.6.0 [2021-02-10]

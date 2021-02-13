@@ -13,10 +13,11 @@ pscnseq(
   fasta = NULL,
   gcbase = NULL,
   bam_pattern = NULL,
-  binSize = NULL,
+  binsize = NULL,
   config = "config.yml",
   session_details = interactive(),
-  verbose = TRUE
+  verbose = TRUE,
+  ...
 )
 }
 \arguments{
@@ -43,7 +44,7 @@ typically named \file{*.txt.gz}, e.g. \file{hg19.gc50Base.txt.gz}.}
 subset of BAM files to be processed.  If NULL (default), then BAM files
 matching \verb{.bwa.realigned.rmDups(|.recal)(|.bam)$} are included.}
 
-\item{binSize}{(integer or numeric) The bin size (in basepairs) used for
+\item{binsize}{(integer or numeric) The bin size (in basepairs) used for
 binning reads into bins that then are passed to the segmentation method.}
 
 \item{config}{(character) Pathname to YAML configuration file.
@@ -54,6 +55,8 @@ before starting the processing and after it completed.}
 
 \item{verbose}{(logical) If TRUE, then verbose output is produced,
 otherwise not.}
+
+\item{\ldots}{Not used.}
 }
 \value{
 Returns what the called \code{pscnseq_nnn()} function returns, i.e.
@@ -88,10 +91,13 @@ file.
 
 \section{How to call pipeline from the command line}{
 
-Below is how you could run the pipeline step by step:\if{html}{\out{<div class="sh">}}\preformatted{Rscript -e "CostelloPSCNSeq::pscnseq(what='mpileup', verbose=TRUE)"  # ~25 min
-Rscript -e "CostelloPSCNSeq::pscnseq(what='sequenza', verbose=TRUE)" # ~60 min
-Rscript -e "CostelloPSCNSeq::pscnseq(what='pscbs', verbose=TRUE)"    #  ~5 min
-Rscript -e "CostelloPSCNSeq::pscnseq(what='reports', verbose=TRUE)"  #  ~2 min
+Below is how you could run the pipeline step by step.  The \code{--args} option
+tells \code{Rscript} that any options following should be passed as arguments
+to this function.\if{html}{\out{<div class="sh">}}\preformatted{Rscript -e CostelloPSCNSeq::pscnseq --args --help
+Rscript -e CostelloPSCNSeq::pscnseq --args --what=mpileup   # ~25 min
+Rscript -e CostelloPSCNSeq::pscnseq --args --what=sequenza  # ~60 min
+Rscript -e CostelloPSCNSeq::pscnseq --args --what=pscbs     #  ~5 min
+Rscript -e CostelloPSCNSeq::pscnseq --args --what=reports   #  ~2 min
 }\if{html}{\out{</div>}}
 }
 

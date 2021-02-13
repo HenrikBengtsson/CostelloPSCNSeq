@@ -23,7 +23,7 @@
 #' subset of BAM files to be processed.  If NULL (default), then BAM files
 #' matching `.bwa.realigned.rmDups(|.recal)(|.bam)$` are included.
 #'
-#' @param binSize (integer or numeric) The bin size (in basepairs) used for
+#' @param binsize (integer or numeric) The bin size (in basepairs) used for
 #' binning reads into bins that then are passed to the segmentation method.
 #'
 #' @param config (character) Pathname to YAML configuration file.
@@ -34,6 +34,8 @@
 #'
 #' @param verbose (logical) If TRUE, then verbose output is produced,
 #' otherwise not.
+#'
+#' @param \ldots Not used.
 #'
 #' @return Returns what the called `pscnseq_nnn()` function returns, i.e.
 #' [pscnseq_mpileup()], [pscnseq_sequenza()], [pscnseq_pscbs()], or
@@ -62,24 +64,30 @@
 #' file.
 #'
 #' @section How to call pipeline from the command line:
-#' Below is how you could run the pipeline step by step:
+#' Below is how you could run the pipeline step by step.  The `--args` option
+#' tells `Rscript` that any options following should be passed as arguments
+#' to this function.
 #'
 #' ```sh
-#' Rscript -e "CostelloPSCNSeq::pscnseq(what='mpileup', verbose=TRUE)"  # ~25 min
-#' Rscript -e "CostelloPSCNSeq::pscnseq(what='sequenza', verbose=TRUE)" # ~60 min
-#' Rscript -e "CostelloPSCNSeq::pscnseq(what='pscbs', verbose=TRUE)"    #  ~5 min
-#' Rscript -e "CostelloPSCNSeq::pscnseq(what='reports', verbose=TRUE)"  #  ~2 min
+#' Rscript -e CostelloPSCNSeq::pscnseq --args --help
+#' Rscript -e CostelloPSCNSeq::pscnseq --args --what=mpileup   # ~25 min
+#' Rscript -e CostelloPSCNSeq::pscnseq --args --what=sequenza  # ~60 min
+#' Rscript -e CostelloPSCNSeq::pscnseq --args --what=pscbs     #  ~5 min
+#' Rscript -e CostelloPSCNSeq::pscnseq --args --what=reports   #  ~2 min
 #' ```
 #'
-#' @importFrom R.utils mprint cmdArg
+#' @importFrom R.utils mprint cmdArg commandArgs
 #' @importFrom future %<-% %label% sessionDetails
 #' @importFrom yaml yaml.load_file
-#' @importFrom utils str
+#' @importFrom utils help str
 #' @importFrom aroma.seq findSamtools
 #' @export
-pscnseq <- function(what = c("mpileup", "sequenza", "pscbs", "reports"), dataset = NULL, organism = NULL, chrs = NULL, samples = NULL, fasta = NULL, gcbase = NULL, bam_pattern = NULL, binSize = NULL, config = "config.yml", session_details = interactive(), verbose = TRUE) {
+pscnseq <- function(what = c("mpileup", "sequenza", "pscbs", "reports"), dataset = NULL, organism = NULL, chrs = NULL, samples = NULL, fasta = NULL, gcbase = NULL, bam_pattern = NULL, binsize = NULL, config = "config.yml", session_details = interactive(), verbose = TRUE, ...) {
   assert <- NULL  ## To please R CMD check
   what <- match.arg(what)
+
+  ## Special case: If --config=NULL was specified
+  if (identical(config, "NULL")) config <- NULL
 
   verbose <- Arguments$getVerbose(verbose)
 
@@ -96,6 +104,13 @@ pscnseq <- function(what = c("mpileup", "sequenza", "pscbs", "reports"), dataset
     mprint(findSamtools())
   }
 
+  ## Display help?
+  if (isTRUE(list(...)[["help"]])) {
+    res <- do.call(help, args = list("pscnseq", package = .packageName, help_type = "text"))
+    print(res)
+    return(invisible())
+  }
+
   # Arguments
   args <- list(
     dataset = dataset,
@@ -105,10 +120,16 @@ pscnseq <- function(what = c("mpileup", "sequenza", "pscbs", "reports"), dataset
     fasta = fasta,
     gcbase = gcbase,
     bam_pattern = bam_pattern,
-    binSize = binSize
+    binsize = binsize,
+    config = config
   )
+  verbose && cat(verbose, "Arguments:")
+  verbose && str(verbose, args)
   
   config <- cmdArg(config = config)
+  ## Special case: If --config=NULL was specified
+  if (identical(config, "NULL")) config <- NULL
+  
   if (!is.null(config)) {
     message("* Loading configuration")  
     config_data <- yaml.load_file(config)
@@ -136,7 +157,7 @@ pscnseq <- function(what = c("mpileup", "sequenza", "pscbs", "reports"), dataset
     }
   }
 
-  verbose && cat(verbose, "Arguments:")
+  verbose && cat(verbose, "Arguments (final set):")
   verbose && str(verbose, args)
 
   res <- list()
@@ -148,23 +169,23 @@ pscnseq <- function(what = c("mpileup", "sequenza", "pscbs", "reports"), dataset
       stopifnot(ver < "1.4")
     } %label% "samtools-version"
     print(assert)
-    
-    mps <- pscnseq_mpileup(dataset, organism = organism, chrs = chrs, samples = samples, fasta = fasta, gcbase = gcbase, bam_pattern = bam_pattern, verbose = verbose)
+
+    mps <- pscnseq_mpileup(dataset, organism = args$organism, chrs = args$chrs, samples = args$samples, fasta = args$fasta, gcbase = args$gcbase, bam_pattern = args$bam_pattern, verbose = verbose)
     print(mps)
     res[[what]] <- mps
   } else if (what == "sequenza") {
     ## https://github.com/HenrikBengtsson/Costello-PSCN-Seq/issues/25
     stopifnot(packageVersion("sequenza") <= "2.1.2")
 
-    seqzList <- pscnseq_sequenza(dataset, organism = organism, chrs = chrs, samples = samples, fasta = fasta, gcbase = gcbase, verbose = verbose)
+    seqzList <- pscnseq_sequenza(dataset, organism = args$organism, chrs = args$chrs, samples = args$samples, fasta = args$fasta, gcbase = args$gcbase, verbose = verbose)
     print(seqzList)
     res[[what]] <- seqzList
   } else if (what == "pscbs") {
-    fitList <- pscnseq_pscbs(dataset, organism = organism, chrs = chrs, samples = samples, binSize = binSize, verbose = TRUE)
+    fitList <- pscnseq_pscbs(dataset, organism = args$organism, chrs = args$chrs, samples = args$samples, binsize = args$binsize, verbose = verbose)
     print(fitList)
     res[[what]] <- fitList
   } else if (what == "reports") {
-    reports <- pscnseq_reports(dataset, organism = organism, chrs = chrs, samples = samples, verbose = TRUE)
+    reports <- pscnseq_reports(dataset, organism = args$organism, chrs = args$chrs, samples = args$samples, verbose = verbose)
     print(reports)
     res[[what]] <- reports
   }
@@ -175,3 +196,6 @@ pscnseq <- function(what = c("mpileup", "sequenza", "pscbs", "reports"), dataset
 
   res
 }
+
+#' @importFrom R.utils CmdArgsFunction
+pscnseq <- CmdArgsFunction(pscnseq)

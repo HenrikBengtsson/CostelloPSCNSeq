@@ -4,7 +4,7 @@
 \alias{pscnseq_pscbs}
 \title{Runs Parent-Specific Copy-Number Segmentation (PSCBS) on a Dataset}
 \usage{
-pscnseq_pscbs(dataset, organism, chrs, samples, binSize, verbose = FALSE)
+pscnseq_pscbs(dataset, organism, chrs, samples, binsize, verbose = FALSE)
 }
 \arguments{
 \item{dataset}{(character) The name of the dataset as on file.}
@@ -17,7 +17,7 @@ e.g. \code{c("1", "2", "X")}.}
 \item{samples}{(character) Pathname to a tab-delimited sample specification
 file, typically named \file{*.tsv}, e.g. \file{samples.tsv}.}
 
-\item{binSize}{(integer or numeric) The bin size (in basepairs) used for
+\item{binsize}{(integer or numeric) The bin size (in basepairs) used for
 binning reads into bins that then are passed to the segmentation method.}
 
 \item{verbose}{(logical) If TRUE, then verbose output is produced,

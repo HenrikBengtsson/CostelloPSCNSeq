@@ -17,7 +17,7 @@
 #' @importFrom PSCBS segmentByPairedPSCBS normalizeTotalCNs getChromosomes
 #'
 #' @export
-pscnseq_pscbs <- function(dataset, organism, chrs, samples, binSize, verbose = FALSE) {
+pscnseq_pscbs <- function(dataset, organism, chrs, samples, binsize, verbose = FALSE) {
   verbose <- Arguments$getVerbose(verbose)
   
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -38,12 +38,12 @@ pscnseq_pscbs <- function(dataset, organism, chrs, samples, binSize, verbose = F
   chrs[chrs == "Y"] <- 24
   chrs[chrs == "M"] <- 25
   chrsTag <- sprintf("chrs=%s", seqToHumanReadable(chrs, collapse = ","))
-  binSizeTag <- sprintf("%gkb", binSize/1000)
+  binSizeTag <- sprintf("%gkb", binsize/1000)
   
   mprintf("Dataset: %s\n", dataset)
   mprintf("Organism: %s\n", organism)
   mprintf("Chromosomes: %s\n", seqToHumanReadable(chrs))
-  mprintf("Bin size: %s (%d bp)\n", binSizeTag, binSize)
+  mprintf("Bin size: %s (%d bp)\n", binSizeTag, binsize)
   
   
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -130,7 +130,7 @@ pscnseq_pscbs <- function(dataset, organism, chrs, samples, binSize, verbose = F
         verbose && printf(verbose, "Tumor-normal samples: [n=%d] %s\n",
                           length(seqz), hpaste(sQuote(getFullNames(seqz))))
     
-        fits <- segmentByPairedPSCBS(seqz, binSize=binSize, verbose=TRUE)
+        fits <- segmentByPairedPSCBS(seqz, binSize=binsize, verbose=TRUE)
         verbose && cat(verbose, "PSCBS segmentation:")
         verbose && print(verbose, fits)
       

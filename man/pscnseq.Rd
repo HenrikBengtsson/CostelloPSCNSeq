@@ -6,6 +6,15 @@
 \usage{
 pscnseq(
   what = c("mpileup", "sequenza", "pscbs", "reports"),
+  dataset = NULL,
+  organism = NULL,
+  chrs = NULL,
+  samples = NULL,
+  fasta = NULL,
+  gcbase = NULL,
+  bam_pattern = NULL,
+  binSize = NULL,
+  config = "config.yml",
   session_details = interactive(),
   verbose = TRUE
 )
@@ -13,6 +22,32 @@ pscnseq(
 \arguments{
 \item{what}{(character) The step to be performed; in order, one of
 \code{"mpileup"}, \code{"sequenza"}, \code{"pscbs"}, or \code{"reports"}.}
+
+\item{dataset}{(character) The name of the dataset as on file.}
+
+\item{organism}{(character) The name of the organism as on file.}
+
+\item{chrs}{(character vector) The name of the chromosomes to be processed,
+e.g. \code{c("1", "2", "X")}.}
+
+\item{samples}{(character) Pathname to a tab-delimited sample specification
+file, typically named \file{*.tsv}, e.g. \file{samples.tsv}.}
+
+\item{fasta}{(character) The pathname to the FASTA reference file,
+typically named \file{*.fa} or \file{*.fasta}, e.g. \file{hg19.fa}.}
+
+\item{gcbase}{(character) The pathname to the FASTA reference file,
+typically named \file{*.txt.gz}, e.g. \file{hg19.gc50Base.txt.gz}.}
+
+\item{bam_pattern}{(character; optional) Regular expression to identify
+subset of BAM files to be processed.  If NULL (default), then BAM files
+matching \verb{.bwa.realigned.rmDups(|.recal)(|.bam)$} are included.}
+
+\item{binSize}{(integer or numeric) The bin size (in basepairs) used for
+binning reads into bins that then are passed to the segmentation method.}
+
+\item{config}{(character) Pathname to YAML configuration file.
+If NULL, then the configuration file is skipped.}
 
 \item{session_details}{(logical) If TRUE, session details are reported
 before starting the processing and after it completed.}
@@ -30,8 +65,10 @@ Calling the Parent-Specific Copy-Number Pipeline Step by Step
 }
 \section{Configuration File}{
 
-The pipeline looks for a YAML-formatted configuration file in the current
-directory named \file{config.yml}.  An example of is:\if{html}{\out{<div class="yaml">}}\preformatted{organism: Homo_sapiens
+The default arguments can be set in an YAML-formatted configuration file
+as given by argument \code{config}.  The default is to look for a file named
+\file{config.yml} in the current directory.  To skip this file, specify
+\code{config = NULL}.  An example of such a file is:\if{html}{\out{<div class="yaml">}}\preformatted{organism: Homo_sapiens
 chromosomes: c(1:22, "X", "Y", "M")
 fasta: annotationData/organisms/Homo_sapiens/GRCh37,hg19/UCSC/hg19.fa
 gcbase: annotationData/organisms/Homo_sapiens/GRCh37,hg19/UCSC/hg19.gc50Base.txt.gz
@@ -39,11 +76,14 @@ dataset: CostelloP_2015-Exome,bwa,realigned,rmDups,recal
 binsize: 100e3
 samples: sampleData/samples.tsv
 }\if{html}{\out{</div>}}
+}
 
-This file is optional.  If not found, or incomplete, then the missing fields
-have to be specified as command-line options, e.g.
-\code{--organism=Homo_sapiens}.  If a field is specified in both, the
-command-line version will take precedence.
+\section{Specifying arguments via command-line options}{
+
+The arguments can be overridden by command-line options, e.g.
+\code{--organism=Homo_sapiens} will take precedence of argument \code{organism},
+which in turn will take precedent of what is specified in the configuration
+file.
 }
 
 \section{How to call pipeline from the command line}{

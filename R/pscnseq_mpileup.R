@@ -1,27 +1,6 @@
 #' Produces "pileup" Output Files from Read Alignments (BAM Files)
 #'
-#' @param dataset (character) The name of the dataset as on file.
-#'
-#' @param organism (character) The name of the organism as on file.
-#'
-#' @param chrs (character vector) The name of the chromosomes to be processed,
-#' e.g. `c("1", "2", "X")`.
-#'
-#' @param samples (character) Pathname to a tab-delimited sample specification
-#' file, typically named \file{*.tsv}, e.g. \file{samples.tsv}.
-#'
-#' @param fasta (character) The pathname to the FASTA reference file,
-#' typically named \file{*.fa} or \file{*.fasta}, e.g. \file{hg19.fa}.
-#'
-#' @param gcbase (character) The pathname to the FASTA reference file,
-#' typically named \file{*.txt.gz}, e.g. \file{hg19.gc50Base.txt.gz}.
-#'
-#' @param bam_pattern (character; optional) Regular expression to identify
-#' subset of BAM files to be processed.  If NULL (default), then BAM files
-#' matching `.bwa.realigned.rmDups(|.recal)(|.bam)$` are included.
-#'
-#' @param verbose (logical) If TRUE, then verbose output is produced,
-#' otherwise not.
+#' @inheritParams pscnseq
 #'
 #' @return A [aroma.seq::MPileupFileSet].
 #'

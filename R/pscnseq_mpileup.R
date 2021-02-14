@@ -31,9 +31,7 @@ pscnseq_mpileup <- function(dataset, organism, chrs, samples, fasta, gcbase, bam
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
   ## Sample data
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  samples <- readDataFrame(samples, fill=TRUE)
-  o <- order(samples$Patient_ID, samples$Sample_ID)
-  samples <- samples[o,]
+  samples <- read_samples(samples)
   str(samples)
   
   

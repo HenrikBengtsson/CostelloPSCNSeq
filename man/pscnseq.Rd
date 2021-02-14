@@ -66,6 +66,34 @@ Returns what the called \code{pscnseq_nnn()} function returns, i.e.
 \description{
 Calling the Parent-Specific Copy-Number Pipeline Step by Step
 }
+\section{Format of the samples file}{
+
+The \code{samples} argument should specify the pathname to a TAB-delimited file
+that provide annotation data for the samples to be processed.
+This file should a row of TAB-delimited column headers followed rows of
+samples with corresponding, TAB-delimited cells.
+The samples file must provide columns \code{Patient_ID}, \code{Sample_ID}, and \code{A0}.
+Any other columns are ignored.
+This pipeline processes tumor-normal pairs.  The pairs processed are
+inferred from \verb{(Patient_ID, Sample_ID)}.  Specifically, for each unique
+\code{Patient_ID}, the sample entry with \code{Sample_ID == "Normal"} is used as
+the normal reference.  There must only be such entry per patient.
+Each patient may have one or more tumor samples, which are identified
+as \code{Sample_ID != "Normal"}.
+
+For example, the below \file{samples.tsv} file specifies two tumor-normal
+pairs \code{Primary-v1} vs \code{Normal} and \code{Primary-v2} vs \code{Normal} for one
+patient named \code{Patient123}.  This file specifies also fields \code{SF}, \code{Kit},
+and \code{A0}, which may be used in other pipelines but are all ignored by this
+pipeline.\preformatted{Patient_ID      Sample_ID       SF      Kit     A0
+Patient123      Normal  SF00121N        Xgen Exome Research Panel       X00001
+Patient123      Primary-v1      SF00121-v1      Xgen Exome Research Panel       X00002
+Patient123      Primary-v2      SF00121-v2      Xgen Exome Research Panel       X00003
+}
+
+This
+}
+
 \section{Configuration File}{
 
 The default arguments can be set in an YAML-formatted configuration file

@@ -1,0 +1,4 @@
+Patient_ID	Sample_ID	SF	Kit	A0
+Patient123	Normal	SF00121N	Xgen Exome Research Panel	X00001
+Patient123	Primary-v1	SF00121-v1	Xgen Exome Research Panel	X00002
+Patient123	Primary-v2	SF00121-v2	Xgen Exome Research Panel	X00003

@@ -30,7 +30,7 @@ pscnseq_reports <- function(dataset, organism, chrs, samples, verbose = FALSE) {
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
   if (samples != "*") {
     ## Tumor-normal pairs from sample data
-    data <- readDataFrame(samples, fill=TRUE)
+    data <- read_samples(samples)
     pairs <- pairs_from_samples(data)
     mstr(pairs)
   }

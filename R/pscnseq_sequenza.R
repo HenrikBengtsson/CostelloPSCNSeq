@@ -24,9 +24,7 @@ pscnseq_sequenza <- function(dataset, organism, chrs, samples, fasta, gcbase, ve
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
   ## Sample data
   ## - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  samples <- readDataFrame(samples, fill=TRUE)
-  o <- order(samples$Patient_ID, samples$Sample_ID)
-  samples <- samples[o,]
+  samples <- read_samples(samples)
   str(samples)
   
   

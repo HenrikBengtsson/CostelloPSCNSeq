@@ -41,6 +41,35 @@
 #' [pscnseq_mpileup()], [pscnseq_sequenza()], [pscnseq_pscbs()], or
 #' [pscnseq_reports()].
 #'
+#' @section Format of the samples file:
+#' The `samples` argument should specify the pathname to a TAB-delimited file
+#' that provide annotation data for the samples to be processed.
+#' This file should a row of TAB-delimited column headers followed rows of
+#' samples with corresponding, TAB-delimited cells.
+#' The samples file must provide columns `Patient_ID`, `Sample_ID`, and `A0`.
+#' Any other columns are ignored.
+#' This pipeline processes tumor-normal pairs.  The pairs processed are
+#' inferred from `(Patient_ID, Sample_ID)`.  Specifically, for each unique
+#' `Patient_ID`, the sample entry with `Sample_ID == "Normal"` is used as
+#' the normal reference.  There must only be such entry per patient.
+#' Each patient may have one or more tumor samples, which are identified
+#' as `Sample_ID != "Normal"`.
+#'
+#' For example, the below \file{samples.tsv} file specifies two tumor-normal
+#' pairs `Primary-v1` vs `Normal` and `Primary-v2` vs `Normal` for one
+#' patient named `Patient123`.  This file specifies also fields `SF`, `Kit`,
+#' and `A0`, which may be used in other pipelines but are all ignored by this
+#' pipeline.
+#'
+#' ```
+#' Patient_ID      Sample_ID       SF      Kit     A0
+#' Patient123      Normal  SF00121N        Xgen Exome Research Panel       X00001
+#' Patient123      Primary-v1      SF00121-v1      Xgen Exome Research Panel       X00002
+#' Patient123      Primary-v2      SF00121-v2      Xgen Exome Research Panel       X00003
+#' ```
+#'
+#' This
+#'
 #' @section Configuration File:
 #' The default arguments can be set in an YAML-formatted configuration file
 #' as given by argument `config`.  The default is to look for a file named

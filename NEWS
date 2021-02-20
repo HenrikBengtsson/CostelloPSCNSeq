@@ -1,7 +1,7 @@
 Package: CostelloJPSCNSeq
 =========================
 
-Version: 0.6.0-9000 [2021-02-13]
+Version: 0.6.0-9000 [2021-02-20]
 
 SIGNIFICANT CHANGES:
 
@@ -13,6 +13,10 @@ NEW FEATURES:
    'Rscript -e CostelloJPSCNSeq::pscnseq --args --help' and
    'Rscript -e CostelloJPSCNSeq::pscnseq --args --config=/path/to/config.yml'.
 
+BUG FIXES:
+
+ * pscnseq() did not output session details in batch but in interactive mode.
+   
 
 Version: 0.6.0 [2021-02-10]
 

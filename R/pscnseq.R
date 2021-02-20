@@ -111,7 +111,7 @@
 #' @importFrom utils help str
 #' @importFrom aroma.seq findSamtools
 #' @export
-pscnseq <- function(what = c("mpileup", "sequenza", "pscbs", "reports"), dataset = NULL, organism = NULL, chrs = NULL, samples = NULL, fasta = NULL, gcbase = NULL, bam_pattern = NULL, binsize = NULL, config = "config.yml", session_details = interactive(), verbose = TRUE, ...) {
+pscnseq <- function(what = c("mpileup", "sequenza", "pscbs", "reports"), dataset = NULL, organism = NULL, chrs = NULL, samples = NULL, fasta = NULL, gcbase = NULL, bam_pattern = NULL, binsize = NULL, config = "config.yml", session_details = !interactive(), verbose = TRUE, ...) {
   assert <- NULL  ## To please R CMD check
   what <- match.arg(what)
 

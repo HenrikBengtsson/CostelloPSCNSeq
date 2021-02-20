@@ -113,141 +113,19 @@ it will block until the job is finished and then its value will be printed. Here
 ## Help
 
 ```r
-pscnseq            package:CostelloPSCNSeq             R Documentation
+> help("pscnseq", package = "CostelloPSCNSeq")
 
-Calling the Parent-Specific Copy-Number Pipeline Step by Step
-
-Description:
-
-     Calling the Parent-Specific Copy-Number Pipeline Step by Step
-
-Usage:
-
-     pscnseq(
-       what = c("mpileup", "sequenza", "pscbs", "reports"),
-       dataset = NULL,
-       organism = NULL,
-       chrs = NULL,
-       samples = NULL,
-       fasta = NULL,
-       gcbase = NULL,
-       bam_pattern = NULL,
-       binsize = NULL,
-       config = "config.yml",
-       session_details = interactive(),
-       verbose = TRUE,
-       ...
-     )
-     
-Arguments:
-
-    what: (character) The step to be performed; in order, one of
-          '"mpileup"', '"sequenza"', '"pscbs"', or '"reports"'.
-
- dataset: (character) The name of the dataset as on file.
-
-organism: (character) The name of the organism as on file.
-
-    chrs: (character vector) The name of the chromosomes to be
-          processed, e.g. 'c("1", "2", "X")'.
-
- samples: (character) Pathname to a tab-delimited sample specification
-          file, typically named '*.tsv', e.g. 'samples.tsv'.
-
-   fasta: (character) The pathname to the FASTA reference file,
-          typically named '*.fa' or '*.fasta', e.g. 'hg19.fa'.
-
-  gcbase: (character) The pathname to the FASTA reference file,
-          typically named '*.txt.gz', e.g. 'hg19.gc50Base.txt.gz'.
-
-bam_pattern: (character; optional) Regular expression to identify
-          subset of BAM files to be processed.  If NULL (default), then
-          BAM files matching .bwa.realigned.rmDups(|.recal)(|.bam)$ are
-          included.
-
- binsize: (integer or numeric) The bin size (in basepairs) used for
-          binning reads into bins that then are passed to the
-          segmentation method.
-
-  config: (character) Pathname to YAML configuration file. If NULL,
-          then the configuration file is skipped.
-
-session_details: (logical) If TRUE, session details are reported before
-          starting the processing and after it completed.
-
- verbose: (logical) If TRUE, then verbose output is produced, otherwise
-          not.
-
-     ...: Not used.
-
-Value:
-
-     Returns what the called 'pscnseq_nnn()' function returns, i.e.
-     'pscnseq_mpileup()', 'pscnseq_sequenza()', 'pscnseq_pscbs()', or
-     'pscnseq_reports()'.
-
-Format of the samples file:
-
-     The 'samples' argument should specify the pathname to a
-     TAB-delimited file that provide annotation data for the samples to
-     be processed. This file should a row of TAB-delimited column
-     headers followed rows of samples with corresponding, TAB-delimited
-     cells. The samples file must provide columns 'Patient_ID',
-     'Sample_ID', and 'A0'. Any other columns are ignored. This
-     pipeline processes tumor-normal pairs.  The pairs processed are
-     inferred from (Patient_ID, Sample_ID).  Specifically, for each
-     unique 'Patient_ID', the sample entry with 'Sample_ID == "Normal"'
-     is used as the normal reference.  There must only be such entry
-     per patient. Each patient may have one or more tumor samples,
-     which are identified as 'Sample_ID != "Normal"'.
-
-     For example, the below 'samples.tsv' file specifies two
-     tumor-normal pairs 'Primary-v1' vs 'Normal' and 'Primary-v2' vs
-     'Normal' for one patient named 'Patient123'.  This file specifies
-     also fields 'SF', 'Kit', and 'A0', which may be used in other
-     pipelines but are all ignored by this pipeline.
-
-     Patient_ID      Sample_ID       SF      Kit     A0
-     Patient123      Normal  SF00121N        Xgen Exome Research Panel       X00001
-     Patient123      Primary-v1      SF00121-v1      Xgen Exome Research Panel       X00002
-     Patient123      Primary-v2      SF00121-v2      Xgen Exome Research Panel       X00003
-     
-     This
-
-Configuration File:
-
-     The default arguments can be set in an YAML-formatted
-     configuration file as given by argument 'config'.  The default is
-     to look for a file named 'config.yml' in the current directory.
-     To skip this file, specify 'config = NULL'.  An example of such a
-     file is:
-
-     organism: Homo_sapiens
-     chromosomes: c(1:22, "X", "Y", "M")
-     fasta: annotationData/organisms/Homo_sapiens/GRCh37,hg19/UCSC/hg19.fa
-     gcbase: annotationData/organisms/Homo_sapiens/GRCh37,hg19/UCSC/hg19.gc50Base.txt.gz
-     dataset: CostelloP_2015-Exome,bwa,realigned,rmDups,recal
-     binsize: 100e3
-     samples: sampleData/samples.tsv
-     
-Specifying arguments via command-line options:
-
-     The arguments can be overridden by command-line options, e.g.
-     '--organism=Homo_sapiens' will take precedence of argument
-     'organism', which in turn will take precedent of what is specified
-     in the configuration file.
-
-How to call pipeline from the command line:
-
-     Below is how you could run the pipeline step by step.  The
-     '--args' option tells 'Rscript' that any options following should
-     be passed as arguments to this function.
-
-     Rscript -e CostelloPSCNSeq::pscnseq --args --help
-     Rscript -e CostelloPSCNSeq::pscnseq --args --what=mpileup   # ~25 min
-     Rscript -e CostelloPSCNSeq::pscnseq --args --what=sequenza  # ~60 min
-     Rscript -e CostelloPSCNSeq::pscnseq --args --what=pscbs     #  ~5 min
-     Rscript -e CostelloPSCNSeq::pscnseq --args --what=reports   #  ~2 min
+<%
+options(pager = function(files, header, title, delete.file) {
+  bfr <- readLines(files, warn = FALSE)
+  if (delete.file) file.remove(files)
+  bfr <- gsub("_\b", "", bfr)
+  cat(bfr, sep = "\n")
+})
+h <- help("pscnseq", package = "CostelloPSCNSeq", help_type = "text")
+out <- utils::capture.output(print(h))
+cat(out, sep = "\n")
+%>
 ```     
 
 

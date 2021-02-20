@@ -118,6 +118,8 @@ it will block until the job is finished and then its value will be printed. Here
 ## Help
 
 ```r
+> help("pscnseq", package = "CostelloPSCNSeq")
+
 pscnseq            package:CostelloPSCNSeq             R Documentation
 
 Calling the Parent-Specific Copy-Number Pipeline Step by Step
@@ -253,6 +255,7 @@ How to call pipeline from the command line:
      Rscript -e CostelloPSCNSeq::pscnseq --args --what=sequenza  # ~60 min
      Rscript -e CostelloPSCNSeq::pscnseq --args --what=pscbs     #  ~5 min
      Rscript -e CostelloPSCNSeq::pscnseq --args --what=reports   #  ~2 min
+     
 ```     
 
 

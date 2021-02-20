@@ -1,4 +1,4 @@
-check: check_shell check_r_parse check_spelling
+include .make/Makefile
 
 check_shell:
 	shellcheck -x *.pbs

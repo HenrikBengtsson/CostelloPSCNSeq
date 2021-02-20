@@ -141,7 +141,7 @@ Usage:
        bam_pattern = NULL,
        binsize = NULL,
        config = "config.yml",
-       session_details = interactive(),
+       session_details = !interactive(),
        verbose = TRUE,
        ...
      )

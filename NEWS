@@ -10,8 +10,8 @@ SIGNIFICANT CHANGES:
 NEW FEATURES:
 
  * Made it easier to call pscnseq() from the command line, e.g.
-   'Rscript -e pscnseq --args --help' and
-   'Rscript -e pscnseq --args --config=/path/to/config.yml'.
+   'Rscript -e CostelloJPSCNSeq::pscnseq --args --help' and
+   'Rscript -e CostelloJPSCNSeq::pscnseq --args --config=/path/to/config.yml'.
 
 
 Version: 0.6.0 [2021-02-10]
